@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    body {
+        background-color: #1E1E1E;
+        color: #DADADA;
+    }
+    .card {
+        background-color: #262626;
+        color: #B3B3B3;
+    }
+    .btn {
+        background-color: #8A5CF5;
+        color: #DADADA;
+    }
+</style>
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="text-center">User Playlist Detail</h4>
+            <ul class="list-group">
+                <li class="list-group-item"><b>Judul:</b> vibes</li>
+                <li class="list-group-item"><b>Pembuat:</b> marmuttestereyyyyy</li>
+                <li class="list-group-item"><b>Jumlah Lagu:</b> 21</li>
+                <li class="list-group-item"><b>Total Durasi:</b> 46 Menit</li>
+                <li class="list-group-item"><b>Tanggal Dibuat:</b> 1/1/2001</li>
+                <li class="list-group-item"><b>Deskripsi:</b> this is a playlist</li>
+            </ul>
+
+            <div class="text-center mt-3">
+                <a href="#" class="btn btn-primary">Shuffle Play</a>
+                <a href="#" class="btn btn-secondary">Kembali</a>
+            </div>
+
+            <h4 class="text-center mt-4">Daftar Lagu</h4>
+
+            <table class="table mt-3">
+                <thead>
+                    <tr>
+                        <th>Judul Lagu</th>
+                        <th>Oleh</th>
+                        <th>Durasi</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ao no Sumika</td>
+                        <td>Tatsuya Kitani</td>
+                        <td>3:46</td>
+                        <td>
+                            <button class="btn btn-info">Lihat</button>
+                            <button class="btn btn-warning">Play</button>
+                            <button class="btn btn-danger">Hapus</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addSongModal">Add a Song</button>
+        </div>
+    </div>
+</div>
+
+<!-- Add New Playlist Modal -->
+<div class="modal fade" id="addSongModal" tabindex="-1" role="dialog" aria-labelledby="addSongModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" style="background-color: #262626; color: #B3B3B3;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addSongModalLabel">Add a Song</h5>
+            </div>
+            <div class="modal-body">
+                <!-- Form -->
+                <form>
+                    <div class="form-group">
+                        <label for="Song">Song: Title - Artist</label>
+                        <input type="text" class="form-control" id="SongTitle" placeholder="Enter title">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock content %}

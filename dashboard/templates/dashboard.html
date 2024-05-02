@@ -1,54 +1,96 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>User Dashboard</title>
-        <!-- Include Bootstrap CSS -->
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-        <!-- Custom CSS -->
-        <style>
-            /* Add your custom CSS styles here */
-        </style>
-    </head>
-    <body>
-
-    <div class="container mt-5">
-        <h1>User Dashboard</h1>
-        <!-- Display user profile information -->
-        <h2>User Profile</h2>
-        <p>Name: John Doe</p>
-        <p>Email: john@example.com</p>
-        <!-- Show additional fields based on user's role -->
-        <h3>Additional Information</h3>
-        <!-- Conditionals to display role-specific information -->
-        <!-- Songwriter -->
-        <p>Songs: Song 1, Song 2, Song 3</p>
-        <!-- Artist -->
-        <p>Albums: Album 1, Album 2</p>
-        <!-- Podcaster -->
-        <p>Podcasts: Podcast 1, Podcast 2</p>
-        <!-- Label -->
-        <p>Contacts: Contact 1, Contact 2</p>
-        <p>Albums: Album 1, Album 2</p>
-        <!-- User without specific role -->
-        <p>No specific role</p>
-        <!-- Display playlists -->
-        <h3>Playlists</h3>
-        <!-- Conditionals to show playlists or a message if none -->
-        <!-- If user has playlists -->
-        <ul>
-            <li>Playlist 1</li>
-            <li>Playlist 2</li>
-        </ul>
-        <!-- If user has no playlists -->
-        <p>No Playlist</p>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static "dashboard/dashboard.css" %}">
+    <style>
+        body {
+            background-color: #1E1E1E;
+            color: #DADADA;
+        }
+        .card {
+            background-color: #262626;
+            color: #B3B3B3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- User Information -->
+            <div class="col-md-4 d-flex align-items-center">
+                <div class="card mx-auto">
+                    <div class="card-img-top text-center pt-3">
+                        <img src="user_icon.jpg" alt="User Icon" style="width: 100px; height: 100px; border-radius: 50%;">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">User Information</h5>
+                        <p class="card-text">Nama: insert label name</p>
+                        <p class="card-text">Email: label@example.com</p>
+                        <p class="card-text">Kontak: UHHHHH</p>
+                        <!--
+                            Bukan untuk label
+                            <p class="card-text">Kota Asal: DKI Jakarta</p>
+                        <p class="card-text">Gender: Male</p>
+                        <p class="card-text">Tempat Lahir: DKI Jakarta</p>
+                        <p class="card-text">Tanggal Lahir: 1/1/2001</p>
+                        <p class="card-text">Roles: Artist, Podcaster</p>-->
+                    </div>
+                </div>
+            </div>
+            <!-- Right column for playlists/songs/etc -->
+            <div class="col-md-8">
+                <!-- Playlists section -->
+                <!--<div class="card" id="list-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Playlists</h5>
+                        <ul class="list-group">
+                            <li class="list-group-item">Playlist 1</li>
+                            <li class="list-group-item">Playlist 2</li>
+                        </ul>
+                    </div>
+                </div>-->
+                <!-- Songs section (if user is an artist/songwriter) -->
+                <!--<div class="card mt-3" id="list-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Songs</h5>
+                        <ul class="list-group">
+                            <li class="list-group-item" style="background-color: #8A5CF5; color: #DADADA;">Song 1</li>
+                            <li class="list-group-item">Song 2</li>
+                        </ul>
+                    </div>
+                </div>-->
+                <!-- Podcasts section (if user is a podcaster) -->
+                <!--<div class="card mt-3" id="list-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Podcasts</h5>
+                        <ul class="list-group">
+                            <li class="list-group-item">Podcast 1</li>
+                            <li class="list-group-item">Podcast 2</li>
+                        </ul>
+                    </div>
+                </div>-->
+                <!-- Albums section (if user is a label) -->
+                <div class="card mt-3" id="list-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Albums</h5>
+                        <ul class="list-group">
+                            <li class="list-group-item">Album 1</li>
+                            <li class="list-group-item">Album 2</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Include Bootstrap JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    </body>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
 </html>
