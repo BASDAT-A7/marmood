@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+    <title>Cek Royalti</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/table.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/navbar.css' %}">
+
+{% endblock meta %}
+
+{% block content %}
+    <body style="margin-top: 7vw; margin-bottom: 3vw; background-color: #1E1E1E;">
+        <!-- Tabel Cek Royalti -->
+        <div class="body-con-cr" style="text-align: center;">
+            <div class="table-div">
+
+                <h1>List Royalti</h1>
+                <table class="rwd-table">
+                <tr>
+                    <th>Judul Lagu</th>
+                    <th>Judul Album</th>
+                    <th>Total Play</th>
+                    <th>Total Download</th>
+                    <th>Total Royalti</th>
+                </tr>
+                <tr>
+                    <td>Lagu 1</td>
+                    <td>Album 1</td>
+                    <td>86</td>
+                    <td>18</td>
+                    <td>Rp 20.000.000</td>
+    
+                </tr>
+                <tr>
+                    <td>Lagu 2</td>
+                    <td>Album 2</td>
+                    <td>70</td>
+                    <td>20</td>
+                    <td>Rp 25.000.000</td>
+                </tr>
+                <tr>
+                    <td>Lagu 3</td>
+                    <td>Album 3</td>
+                    <td>100</td>
+                    <td>55</td>
+                    <td>Rp 50.000.000</td>
+                </tr>
+                </table>
+            </div>
+        </div>
+    </body>
+{% endblock content %}
