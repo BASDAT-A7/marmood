@@ -18,12 +18,3 @@ def show_create_podcast(request):
 
 def show_create_episode(request):
     return render(request, "createEpisode.html")
-
-def show_register(request):
-    return render(request, "register.html")
-
-def show_register_pengguna(request):
-    return render(request, "registerPengguna.html")
-
-def show_register_label(request):
-    return render(request, "registerLabel.html")
