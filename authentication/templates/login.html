@@ -1,0 +1,59 @@
+{% extends 'base.html' %} {% block meta %} {{ block.super }} {% endblock meta %}
+{% block content %}
+<style>
+  body {
+    background-color: #f8d7da; /* Light pink background */
+    height: 100vh; /* Full viewport height */
+    margin: 0; /* Removes default margin */
+    display: flex;
+    align-items: center; /* Aligns vertically center */
+    justify-content: center; /* Aligns horizontally center */
+  }
+</style>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title text-center">Login to Your Marmood Account</h3>
+          <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="inputEmail" class="form-label">Email address</label>
+              <input
+                type="email"
+                class="form-control"
+                id="inputEmail"
+                name="email"
+                aria-describedby="emailHelp"
+                required
+              />
+              <div id="emailHelp" class="form-text">
+                We'll never share your email with anyone else.
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="inputPassword"
+                name="password"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+            <!-- Register Button -->
+            <div class="mt-4">
+              <p class="text-center">
+                Don't have an account?
+                <a class="btn btn-secondary">Register</a>
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

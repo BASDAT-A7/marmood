@@ -1,0 +1,80 @@
+{% extends 'base.html' %} {% block meta %} {{ block.super }} {% endblock meta %}
+{% block content %}
+<style>
+  body,
+  html {
+    height: 100%; /* Ensures full height of the viewport */
+    margin: 0; /* Resets default margin */
+    background-color: #f8d7da; /* A soft pink background for the whole page */
+  }
+  .container {
+    display: flex; /* Uses flexbox for centering */
+    flex-direction: column; /* Stacks children (like .row) vertically */
+    justify-content: center; /* Centers vertically in the viewport */
+    align-items: center; /* Centers horizontally */
+    height: 100%; /* Container takes full height to enable full page centering */
+  }
+  .card {
+    width: 100%; /* Makes sure card takes full width of its column for better control */
+    max-width: 300px; /* Maximum width of each card */
+  }
+</style>
+<div class="container py-5">
+  <div class="text-center mb-5">
+    <h1>Paket Berlangganan</h1>
+    <p>Nikmati musik tanpa jeda :></p>
+  </div>
+  <div class="row">
+    <div class="col-lg-3">
+      <div class="card mb-5 mb-lg-0">
+        <div class="card-body">
+          <h5 class="card-title text-muted text-uppercase text-center">
+            1 Bulan
+          </h5>
+          <h6 class="card-price text-center">
+            Rp54.900<span class="term"></span>
+          </h6>
+          <hr />
+          <a href="#" class="btn btn-primary btn-block">Subscribe</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="card mb-5 mb-lg-0">
+        <div class="card-body">
+          <h5 class="card-title text-muted text-uppercase text-center">
+            3 Bulan
+          </h5>
+          <h6 class="card-price text-center">Rp150.000</h6>
+          <hr />
+          <a href="#" class="btn btn-primary btn-block">Subscribe</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="card mb-5 mb-lg-0">
+        <div class="card-body">
+          <h5 class="card-title text-muted text-uppercase text-center">
+            6 Bulan
+          </h5>
+          <h6 class="card-price text-center">Rp280.000</h6>
+          <hr />
+          <a href="#" class="btn btn-primary btn-block">Subscribe</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title text-muted text-uppercase text-center">
+            12 Bulan
+          </h5>
+          <h6 class="card-price text-center">Rp550.000</h6>
+          <hr />
+          <a href="#" class="btn btn-primary btn-block">Subscribe</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

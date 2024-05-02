@@ -1,0 +1,77 @@
+{% extends 'base.html' %} {% block meta %} {{ block.super }} {% endblock meta %}
+{% block content %}
+<style>
+  .pink-table {
+    background-color: #f8d7da; /* Soft pink background for the table */
+    color: #333; /* Darker text for better readability on pink background */
+  }
+  .pink-table thead th {
+    background-color: #e6a1b2; /* A slightly darker pink for header */
+    color: #fff; /* White text color */
+  }
+  .pink-table tbody tr:hover {
+    background-color: #f8ccd4; /* Lighter pink for hover */
+  }
+</style>
+<div class="container py-5">
+  <div class="row">
+    <div class="col-12">
+      <table class="table pink-table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Artist</th>
+            <th scope="col">Album</th>
+            <th scope="col">Added</th>
+            <th scope="col">Duration</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Example Row -->
+          <tr>
+            <th scope="row">1</th>
+            <td>Haru</td>
+            <td>Yorushika</td>
+            <td>Haru</td>
+            <td>1 week ago</td>
+            <td>4:31</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Haru</td>
+            <td>Yorushika</td>
+            <td>Haru</td>
+            <td>1 week ago</td>
+            <td>4:31</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Haru</td>
+            <td>Yorushika</td>
+            <td>Haru</td>
+            <td>1 week ago</td>
+            <td>4:31</td>
+          </tr>
+          <tr>
+            <th scope="row">4</th>
+            <td>Haru</td>
+            <td>Yorushika</td>
+            <td>Haru</td>
+            <td>1 week ago</td>
+            <td>4:31</td>
+          </tr>
+          <tr>
+            <th scope="row">5</th>
+            <td>Haru</td>
+            <td>Yorushika</td>
+            <td>Haru</td>
+            <td>1 week ago</td>
+            <td>4:31</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock content %}

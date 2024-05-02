@@ -1,0 +1,41 @@
+{% extends 'base.html' %} {% block meta %} {{ block.super }} {% endblock meta %}
+{% block content %}
+<style>
+  /* Styles for the inverted theme and centering */
+  .centered-container {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center content vertically */
+    height: 100vh; /* Full viewport height */
+    color: #333;
+    background-color: #f8d7da; /* Soft pink background for the whole container */
+  }
+  .white-theme {
+    background-color: #ffffff; /* White background */
+    border: 1px solid #e6a1b2; /* Light pink border remains for visibility */
+    padding: 20px;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+  .back-button {
+    color: #f8d7da; /* Pink color for text */
+    background-color: #ffffff; /* White background */
+    border: 1px solid #dd949e; /* Light pink border */
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+  }
+  .back-button:hover {
+    background-color: #e6a1b2; /* Light pink on hover */
+    color: #ffffff; /* White text on hover */
+  }
+</style>
+<div class="centered-container">
+  <div class="white-theme text-center">
+    <p>Berhasil menghapus Lagu dengan judul 'Song1' dari daftar unduhan!</p>
+    <a class="back-button">KEMBALI</a>
+  </div>
+</div>
+{% endblock content %}
