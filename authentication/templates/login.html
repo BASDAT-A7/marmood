@@ -2,12 +2,18 @@
 {% block content %}
 <style>
   body {
-    background-color: #f8d7da; /* Light pink background */
+    background-color: #1e1e1e; /* Light purple background */
     height: 100vh; /* Full viewport height */
     margin: 0; /* Removes default margin */
     display: flex;
     align-items: center; /* Aligns vertically center */
     justify-content: center; /* Aligns horizontally center */
+  }
+  .card-body {
+    background-color: #353535;
+  }
+  .form-label {
+    color: #8a5cf5;
   }
 </style>
 <div class="container">
@@ -15,7 +21,9 @@
     <div class="col-md-6">
       <div class="card">
         <div class="card-body">
-          <h3 class="card-title text-center">Login to Your Marmood Account</h3>
+          <h3 style="color: #8a5cf5" class="card-title text-center">
+            Login to Your Marmood Account
+          </h3>
           <form method="post">
             {% csrf_token %}
             <div class="mb-3">
@@ -28,7 +36,7 @@
                 aria-describedby="emailHelp"
                 required
               />
-              <div id="emailHelp" class="form-text">
+              <div style="color: #8a5cf5" id="emailHelp" class="form-text">
                 We'll never share your email with anyone else.
               </div>
             </div>
@@ -42,10 +50,10 @@
                 required
               />
             </div>
-            <button type="submit" class="btn btn-primary w-100">Login</button>
+            <button type="submit" class="btn btn-dark w-100">Login</button>
             <!-- Register Button -->
             <div class="mt-4">
-              <p class="text-center">
+              <p style="color: #8a5cf5" class="text-center">
                 Don't have an account?
                 <a class="btn btn-secondary">Register</a>
               </p>
