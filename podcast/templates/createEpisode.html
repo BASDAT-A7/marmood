@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create and List Episodes</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1E1E1E;
+            color: #DADADA;
+        }
+        .card {
+            background-color: #262626;
+            border: none;
+        }
+        .card-title {
+            color: #8A5CF5;
+        }
+        .form-control {
+            background-color: #1E1E1E;
+            color: #DADADA;
+            border: 1px solid #B3B3B3;
+        }
+        .form-control:focus {
+            background-color: #1E1E1E;
+            color: #DADADA;
+            border-color: #8A5CF5;
+            box-shadow: none;
+        }
+        .table {
+            color: #DADADA;
+        }
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: #1E1E1E;
+        }
+        .table-striped tbody tr:nth-of-type(even) {
+            background-color: #262626;
+        }
+        .table th, .table td {
+            border-top: 1px solid #B3B3B3;
+        }
+        .btn-primary {
+            background-color: #8A5CF5;
+            border-color: #8A5CF5;
+        }
+        .btn-primary:hover {
+            background-color: #7E53DF;
+            border-color: #7E53DF;
+        }
+        .btn-danger {
+            background-color: #ff4c4c;
+            border-color: #ff4c4c;
+        }
+        .btn-danger:hover {
+            background-color: #e84343;
+            border-color: #e84343;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title text-center">CREATE EPISODE</h2>
+                <form>
+                    <p>Podcast: Podcast1</p>
+                    <div class="form-group row">
+                        <label for="episode-title" class="col-form-label col-sm-2">Judul:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="episode-title" name="episode-title">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="description" class="col-form-label col-sm-2">Deskripsi:</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="duration" class="col-form-label col-sm-2">Durasi:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="duration" name="duration">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <a href="#" class="btn btn-primary mt-2">Submit</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title text-center">DAFTAR EPISODE PADA PODCAST1</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Judul Episode</th>
+                            <th>Deskripsi</th>
+                            <th>Durasi</th>
+                            <th>Tanggal</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>SubJudul1</td>
+                            <td>Lorem Ipsum ....</td>
+                            <td>59 menit</td>
+                            <td>18/03/2024</td>
+                            <td>
+                                <div class="d-flex justify-content-center">
+                                    <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>SubJudul2</td>
+                            <td>Lorem Ipsum ....</td>
+                            <td>1 jam 2 menit</td>
+                            <td>25/03/2024</td>
+                            <td>
+                                <div class="d-flex justify-content-center">
+                                    <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
