@@ -38,10 +38,14 @@
     <div class="container mt-5 text-center">
       <h2>Choose Your Registration Type</h2>
       <div class="mt-4">
-        <a href="register_pengguna.html" class="btn btn-primary btn-lg mx-2"
+        <a
+          href="{% url 'authentication:show_register_pengguna' %}"
+          class="btn btn-primary btn-lg mx-2"
           >Register Pengguna</a
         >
-        <a href="register_label.html" class="btn btn-secondary btn-lg mx-2"
+        <a
+          href="{% url 'authentication:show_register_label' %}"
+          class="btn btn-secondary btn-lg mx-2"
           >Register Label</a
         >
       </div>
