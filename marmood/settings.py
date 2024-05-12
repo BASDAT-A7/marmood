@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'authentication',
     'paket',
     'downloaded'
+    'playlist',
+    'dashboard',
 ]
 
 MIDDLEWARE = [

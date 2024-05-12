@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    body {
+        background-color: #1E1E1E;
+        color: #DADADA;
+    }
+    .card {
+        background-color: #262626;
+        color: #B3B3B3;
+    }
+</style>
+<div class="container mt-5">
+    <h2 class="mb-4">User Playlists</h2>
+    <!-- Card to contain the table -->
+    <div class="card">
+        <div class="card-body" style="background-color: #262626;">
+            <table class="table" style="background-color: #262626;">
+                <thead>
+                    <tr>
+                        <th>Judul</th>
+                        <th>Jumlah Lagu</th>
+                        <th>Total Durasi</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Playlist 1</td>
+                        <td>10</td>
+                        <td>45:20</td>
+                        <td>
+                            <button class="btn btn-info" style="background-color: #8A5CF5; color: #DADADA;">Details</button>
+                            <button class="btn btn-warning" style="background-color: #8A5CF5; color: #DADADA;">Edit</button>
+                            <button class="btn btn-danger" style="background-color: #8A5CF5; color: #DADADA;">Delete</button>
+                        </td>
+                    </tr>
+                    <!-- Add more playlist rows as needed -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Button to show the form as a modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addPlaylistModal" style="background-color: #8A5CF5; color: #DADADA;">Add Playlist</button>
+
+    <!-- Add New Playlist Modal -->
+    <div class="modal fade" id="addPlaylistModal" tabindex="-1" role="dialog" aria-labelledby="addPlaylistModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" style="background-color: #262626; color: #B3B3B3;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addPlaylistModalLabel">Add New Playlist</h5>
+                </div>
+                <div class="modal-body">
+                    <!-- Form for adding a new playlist -->
+                    <form>
+                        <div class="form-group">
+                            <label for="playlistTitle">Judul Playlist</label>
+                            <input type="text" class="form-control" id="playlistTitle" placeholder="Insert title">
+                        </div>
+                        <div class="form-group">
+                            <label for="playlistDescription">Deskripsi Playlist</label>
+                            <textarea class="form-control" id="playlistDescription" rows="3" placeholder="Insert description"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color: #8A5CF5; color: #DADADA;">Close</button>
+                    <button type="button" class="btn btn-primary" style="background-color: #8A5CF5; color: #DADADA;">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock content %}

@@ -1,0 +1,96 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static "dashboard/dashboard.css" %}">
+    <style>
+        body {
+            background-color: #1E1E1E;
+            color: #DADADA;
+        }
+        .card {
+            background-color: #262626;
+            color: #B3B3B3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- User Information -->
+            <div class="col-md-4 d-flex align-items-center">
+                <div class="card mx-auto">
+                    <div class="card-img-top text-center pt-3">
+                        <img src="user_icon.jpg" alt="User Icon" style="width: 100px; height: 100px; border-radius: 50%;">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">User Information</h5>
+                        <p class="card-text">Nama: insert label name</p>
+                        <p class="card-text">Email: label@example.com</p>
+                        <p class="card-text">Kontak: UHHHHH</p>
+                        <!--
+                            Bukan untuk label
+                            <p class="card-text">Kota Asal: DKI Jakarta</p>
+                        <p class="card-text">Gender: Male</p>
+                        <p class="card-text">Tempat Lahir: DKI Jakarta</p>
+                        <p class="card-text">Tanggal Lahir: 1/1/2001</p>
+                        <p class="card-text">Roles: Artist, Podcaster</p>-->
+                    </div>
+                </div>
+            </div>
+            <!-- Right column for playlists/songs/etc -->
+            <div class="col-md-8">
+                <!-- Playlists section -->
+                <!--<div class="card" id="list-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Playlists</h5>
+                        <ul class="list-group">
+                            <li class="list-group-item">Playlist 1</li>
+                            <li class="list-group-item">Playlist 2</li>
+                        </ul>
+                    </div>
+                </div>-->
+                <!-- Songs section (if user is an artist/songwriter) -->
+                <!--<div class="card mt-3" id="list-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Songs</h5>
+                        <ul class="list-group">
+                            <li class="list-group-item" style="background-color: #8A5CF5; color: #DADADA;">Song 1</li>
+                            <li class="list-group-item">Song 2</li>
+                        </ul>
+                    </div>
+                </div>-->
+                <!-- Podcasts section (if user is a podcaster) -->
+                <!--<div class="card mt-3" id="list-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Podcasts</h5>
+                        <ul class="list-group">
+                            <li class="list-group-item">Podcast 1</li>
+                            <li class="list-group-item">Podcast 2</li>
+                        </ul>
+                    </div>
+                </div>-->
+                <!-- Albums section (if user is a label) -->
+                <div class="card mt-3" id="list-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Albums</h5>
+                        <ul class="list-group">
+                            <li class="list-group-item">Album 1</li>
+                            <li class="list-group-item">Album 2</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
