@@ -54,12 +54,16 @@
 } */
 
 .table-div h1 {
-    padding-top: 100px;
+  padding-top: 100px;
   font-weight: normal;
   letter-spacing: -1px;
   color: #B3B3B3;
   justify-content: center;
   text-align: center;
+}
+
+.table-div h6 {
+  color: #8A5CF5;
 }
 
 .rwd-table {
