@@ -26,4 +26,5 @@ urlpatterns = [
     path('authentication/', include('authentication.urls')),
     path('paket/', include('paket.urls')),
     path('downloaded/', include('downloaded.urls')),
+    path('podcast/', include('podcast.urls')),
 ]

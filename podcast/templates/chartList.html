@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chart List</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1E1E1E;
+            color: #DADADA;
+        }
+        .card {
+            background-color: #262626;
+            border: none;
+        }
+        .card-title {
+            color: #8A5CF5;
+        }
+        .btn-primary {
+            background-color: #8A5CF5;
+            border-color: #8A5CF5;
+        }
+        .btn-primary:hover {
+            background-color: #7E53DF;
+            border-color: #7E53DF;
+        }
+        .rounded-card {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .square-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">CHART LIST</h2>
+
+        <div class="row justify-content-center">
+            <div class="col-md-3 mb-4">
+                <div class="card rounded-card">
+                    <img src="/static/images/vinyl.jpg" class="card-img-top square-image" alt="Daily Top 20">
+                    <div class="card-body text-center">
+                        <h5 class="card-title font-weight-bold">Daily Top 20</h5>
+                        <a href="#" class="btn btn-primary mt-2">Lihat Daftar Lagu</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 mb-4">
+                <div class="card rounded-card">
+                    <img src="/static/images/vinyl.jpg" class="card-img-top square-image" alt="Weekly Top 10">
+                    <div class="card-body text-center">
+                        <h5 class="card-title font-weight-bold">Weekly Top 10</h5>
+                        <a href="#" class="btn btn-primary mt-2">Lihat Daftar Lagu</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center">
+            <a href="#" class="btn btn-primary mt-2">Kembali</a>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrap.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
