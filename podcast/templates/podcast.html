@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Podcast Detail</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1E1E1E;
+            color: #DADADA;
+        }
+        .card {
+            background-color: #262626;
+            border: none;
+        }
+        .card-title {
+            color: #8A5CF5;
+        }
+        .table {
+            color: #DADADA;
+        }
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: #1E1E1E;
+        }
+        .table-striped tbody tr:nth-of-type(even) {
+            background-color: #262626;
+        }
+        .table th, .table td {
+            border-top: 1px solid #B3B3B3;
+        }
+        .btn-primary {
+            background-color: #8A5CF5;
+            border-color: #8A5CF5;
+        }
+        .btn-primary:hover {
+            background-color: #7E53DF;
+            border-color: #7E53DF;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title text-center">PODCAST DETAIL</h2>
+                <p class="card-text"><strong>Judul:</strong> Podcast1</p>
+                <p class="card-text"><strong>Genre(s):</strong></p>
+                <ul class="list-unstyled">
+                    <li>Genre1</li>
+                    <li>Genre2</li>
+                </ul>
+                <p class="card-text"><strong>Podcaster:</strong> Artist1</p>
+                <p class="card-text"><strong>Total Durasi:</strong> 8 jam 20 menit</p>
+                <p class="card-text"><strong>Tanggal Rilis:</strong> 18/03/24</p>
+                <p class="card-text"><strong>Tahun:</strong> 2024</p>
+                <div class="d-flex justify-content-center">
+                    <a href="#" class="btn btn-primary mt-2">Kembali</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title text-center">DAFTAR EPISODE</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Judul Episode</th>
+                            <th scope="col">Deskripsi</th>
+                            <th scope="col">Durasi</th>
+                            <th scope="col">Tanggal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>SubJudul1</td>
+                            <td>Lorem Ipsum ....</td>
+                            <td>59 menit</td>
+                            <td>18/03/2024</td>
+                        </tr>
+                        <tr>
+                            <td>SubJudul2</td>
+                            <td>Lorem Ipsum ....</td>
+                            <td>1 jam 2 menit</td>
+                            <td>25/03/2024</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

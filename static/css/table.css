@@ -1,0 +1,107 @@
+:root {
+    --breakpoint-alpha: 480px;
+}
+
+@import "compass/css3";
+
+.column-table {
+    text-align: center;
+}
+
+.column-table button {
+    display: block;
+    margin: 5px auto;
+    border-radius: 10px;
+    background-color: rgb(98, 247, 155);
+}
+
+.rwd-table {
+  margin: 1em auto; /* Membuat tabel berada di tengah halaman */
+  min-width: 300px; 
+  
+  tr {
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th, td {
+    padding: 1em; /* Menambahkan ruang padding yang lebih besar */
+    text-align: center;
+  }
+
+  th, td:before {
+    content: attr(data-th)"";
+    font-weight: bold;
+    @media (max-width: --breakpoint-alpha) {
+      display: none;
+    }
+  }
+  
+}
+
+
+/* // presentational styling */
+
+@import 'https://fonts.googleapis.com/css?family=Montserrat:300,400,700';
+
+/* body {
+  padding: 0 2em;
+  font-family: Montserrat, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  color: #444;
+  background: #eee;
+} */
+
+.table-div h1 {
+  padding-top: 100px;
+  font-weight: normal;
+  letter-spacing: -1px;
+  color: #B3B3B3;
+  justify-content: center;
+  text-align: center;
+}
+
+.table-div h6 {
+  color: #8A5CF5;
+}
+
+.rwd-table {
+  background: #262626;
+  color: #fff;
+  border-radius: .4em;
+  overflow: hidden;
+  tr {
+    border-color: #8A5CF5;
+  }
+  th, td {
+    margin: .5em auto; /* Membuat sel berada di tengah halaman */
+    @media (min-width: --breakpoint-alpha) { 
+      padding: 2em !important; /* Menambahkan ruang padding yang lebih besar */
+    }
+  }
+  th, td:before {
+    color: #DADADA;
+  }
+}
+
+.btn-CR {
+    border-radius: 10px;
+    background-color: #8A5CF5;
+    color: rgb(0, 0, 0);
+    width: 200px;
+    height: 35px;
+    font-weight: 600;
+    border: none;
+}
+
+.btn-column {
+    border-radius: 10px;
+    background-color: #8A5CF5 !important;
+    color: rgb(0, 0, 0);
+    width: 150px;
+    height: 35px;
+    font-weight: 600;
+    border: none;
+}
+

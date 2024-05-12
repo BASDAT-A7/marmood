@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+    <title>Create Lagu</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/form_lagu.css' %}">
+{% endblock meta %}
+
+{% block content %}
+    <body class="body-lagu">
+        <div class="container">
+            <h2>Create Lagu</h2>
+            <form>
+              <div class="form-group">
+                <label for="album">Album:</label>
+                <input type="text" class="form-control" id="album" placeholder="Album1">
+              </div>
+              <div class="form-group">
+                <label for="judul">Judul:</label>
+                <input type="text" class="form-control" id="judul" placeholder="Judul Lagu">
+              </div>
+              <div class="form-group">
+                <label for="artist">Artist:</label>
+                <input type="text" class="form-control" id="artist" placeholder="Artist Name">
+              </div>
+              <div class="form-group">
+                <label for="songwriter">Songwriter:</label>
+                <select multiple class="form-control" id="songwriter">
+                  <!-- Option list for songwriters (to be populated dynamically) -->
+                  <!-- For now, let's assume some sample options -->
+                  <option>Songwriter 1</option>
+                  <option>Songwriter 2</option>
+                  <option>Songwriter 3</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="genre">Genre:</label>
+                <select multiple class="form-control" id="genre">
+                  <!-- Option list for genres (to be populated dynamically) -->
+                  <!-- For now, let's assume some sample options -->
+                  <option>Pop</option>
+                  <option>R&B</option>
+                  <option>Rock</option>
+                  <option>Country</option>
+                  <option>Hip Hop</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="durasi">Durasi:</label>
+                <input type="text" class="form-control" id="durasi" placeholder="Duration">
+              </div>
+              <button type="submit" class="btn btn-primary-2">Submit</button>
+            </form>
+          </div>
+        
+          <!-- Bootstrap JS and dependencies -->
+          <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+          <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+          <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+    </body>
+{% endblock content %}

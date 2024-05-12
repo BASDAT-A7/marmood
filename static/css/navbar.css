@@ -1,0 +1,37 @@
+.navbar {
+    background-color: #2626267b !important;
+    color: rgb(255, 255, 255);
+    border-bottom-left-radius: 20px;
+    /* filter: blur(5px); */
+    border-bottom-right-radius: 20px;
+    backdrop-filter: blur(5px);
+}
+
+.right-content {
+    margin-right: 10px;
+}
+
+.right-content a {
+    margin-right: 10px;
+    margin-left: 10px;
+    color: white;
+    background-color: transparent;
+    border-color: transparent;
+    border-radius: 20px;
+}
+
+.right-content a:hover{
+    background-color: #8A5CF5;
+    color: black;
+    font-weight: 600;
+    border: none;
+    transition: background-color 0.3s;
+}
+
+.left-content {
+    margin-left: 30px;
+}
+
+input[type="text"] {
+
+}
