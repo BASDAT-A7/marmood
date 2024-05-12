@@ -24,7 +24,6 @@ urlpatterns = [
     path('kelola-album-song/', include('kelola_album_song.urls')),
     path('cek-royalti/', include('cek_royalti.urls')),
     path('kelola-album/', include('kelola_album.urls')),
-    path('authentication/', include('authentication.urls')),
     path('paket/', include('paket.urls')),
     path('downloaded/', include('downloaded.urls')),
     path('podcast/', include('podcast.urls')),
