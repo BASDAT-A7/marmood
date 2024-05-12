@@ -46,6 +46,9 @@ INSTALLED_APPS = [
     'kelola_album_song',
     'cek_royalti',
     'kelola_album'
+    'authentication',
+    'paket',
+    'downloaded'
 ]
 
 MIDDLEWARE = [

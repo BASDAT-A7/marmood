@@ -1,0 +1,77 @@
+{% extends 'base.html' %} {% block meta %} {{ block.super }} {% endblock meta %}
+{% block content %}
+<style>
+  .dark-table {
+    background-color: #1e1e1e;
+    color: #8a5cf5;
+  }
+  .dark-table thead th {
+    background-color: #1e1e1e;
+    color: #8a5cf5;
+  }
+  .dark-table tbody tr:hover {
+    background-color: #8a5cf5;
+  }
+</style>
+<div class="container py-5">
+  <div class="row">
+    <div class="col-12">
+      <table class="table dark-table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Artist</th>
+            <th scope="col">Album</th>
+            <th scope="col">Added</th>
+            <th scope="col">Duration</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Example Row -->
+          <tr>
+            <th scope="row">1</th>
+            <td>Haru</td>
+            <td>Yorushika</td>
+            <td>Haru</td>
+            <td>1 week ago</td>
+            <td>4:31</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Haru</td>
+            <td>Yorushika</td>
+            <td>Haru</td>
+            <td>1 week ago</td>
+            <td>4:31</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Haru</td>
+            <td>Yorushika</td>
+            <td>Haru</td>
+            <td>1 week ago</td>
+            <td>4:31</td>
+          </tr>
+          <tr>
+            <th scope="row">4</th>
+            <td>Haru</td>
+            <td>Yorushika</td>
+            <td>Haru</td>
+            <td>1 week ago</td>
+            <td>4:31</td>
+          </tr>
+          <tr>
+            <th scope="row">5</th>
+            <td>Haru</td>
+            <td>Yorushika</td>
+            <td>Haru</td>
+            <td>1 week ago</td>
+            <td>4:31</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock content %}
