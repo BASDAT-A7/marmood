@@ -46,12 +46,12 @@ INSTALLED_APPS = [
     'authentication',
     'kelola_album_song',
     'cek_royalti',
-    'kelola_album'
-    'authentication',
+    'kelola_album',
     'paket',
-    'downloaded'
+    'downloaded',
     'playlist',
     'dashboard',
+    'search_songs',
 ]
 
 MIDDLEWARE = [
@@ -91,11 +91,11 @@ WSGI_APPLICATION = 'marmood.wsgi.application'
 DATABASES = {
   'default': {
     'ENGINE': 'django.db.backends.postgresql',
-    'NAME': getenv('PGDATABASE'),
-    'USER': getenv('PGUSER'),
-    'PASSWORD': getenv('PGPASSWORD'),
-    'HOST': getenv('PGHOST'),
-    'PORT': getenv('PGPORT', 5432),
+    'NAME': 'marmut',
+    'USER': 'marmut_owner',
+    'PASSWORD': 'mYJo71VMELrZ',
+    'HOST': 'ep-long-bird-a5e28bqy.us-east-2.aws.neon.tech',
+    'PORT': "",
     'OPTIONS': {
       'sslmode': 'require',
     },

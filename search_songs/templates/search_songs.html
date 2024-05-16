@@ -26,50 +26,56 @@
     padding: 10px;
     text-align: center;
   }
-  .buy-button,
-  .history-button {
+  .detail-button,
+  .download-button {
     background-color: #ffffff;
     color: #8a5cf5;
     border: none;
     cursor: pointer;
     padding: 10px 20px;
   }
+  .not-found {
+    color: #ffffff;
+    font-size: 20px;
+  }
 </style>
+
 <div class="container py-5">
   <div class="text-center mb-5">
-    <h1 style="color: #8a5cf5">Paket Berlangganan</h1>
-    <p style="color: #8a5cf5">Nikmati musik tanpa jeda :></p>
+    <h1 style="color: #8a5cf5">Hasil Pencarian "{{ dicari }}"</h1>
   </div>
-  <table id="subscriptionTable">
+  {% if search_songs %}
+  <table id="resultsTable">
     <thead>
       <tr>
-        <th>Nama</th>
-        <th>Harga</th>
-        <th>Beli</th>
+        <th>Tipe</th>
+        <th>Judul</th>
+        <th>Oleh</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      {% for paket in paket %}
+      {% for song in search_songs %}
       <tr>
-        <td>{{ paket.jenis_paket }}</td>
-        <td>{{ paket.harga }}</td>
+        <td>{{ song.type }}</td>
+        <td>{{ song.judul }}</td>
+        <td>{{ song.oleh }}</td>
         <td>
-          {{ paket.jenis_paket }}
-          <a
-            href="{% url 'paket:detailed_paket' jenis_paket=paket.jenis_paket %}"
-          >
-            <button class="buy-button">Beli</button>
+          <button class="detail-button">Lihat</button>
+          {% if 'Premium' in list_role and song.type == 'SONG' %}
+          <a href="{% url 'downloaded:download_song' id_song=song.id_konten %}">
+            <button class="download-button">Download</button>
           </a>
+          {% endif %}
         </td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
-  <!-- Transaction History Button -->
-  <div class="mt-3">
-    <a href="{% url 'paket:riwayat_transaksi' %}">
-      <button class="history-button">Lihat riwayat transaksi</button>
-    </a>
+  {% else %}
+  <div class="not-found">
+    Maaf, pencarian untuk "{{ dicari }}" tidak ditemukan
   </div>
+  {% endif %}
 </div>
 {% endblock content %}

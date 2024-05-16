@@ -1,0 +1,43 @@
+{% extends 'base.html' %} {% block meta %} {{ block.super }} {% endblock meta %}
+{% block content %}
+<style>
+  /* Styles for the inverted theme and centering */
+  .centered-container {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center content vertically */
+    height: 100vh; /* Full viewport height */
+    color: #333;
+    background-color: #1e1e1e; /* Dark background for the whole container */
+  }
+  .message-box {
+    background-color: #ffffff; /* White background */
+    border: 2px solid #6424fa; /* Purple border */
+    padding: 20px;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+  a.button {
+    color: #ffffff; /* White color for text */
+    background-color: #6424fa; /* Purple background */
+    border: none;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effect */
+  }
+  a.button:hover {
+    background-color: #4c1faf; /* Slightly darker purple on hover */
+  }
+</style>
+<div class="centered-container">
+  <div class="message-box text-center">
+    <p>Berhasil mengunduh Lagu dengan judul "{{ judul_lagu }}"!</p>
+    <a href="{% url 'downloaded:show_downloaded' %}" class="button"
+      >KE DAFTAR DOWNLOAD</a
+    >
+    <a href="{% url 'downloaded:show_downloaded' %}" class="button">KEMBALI</a>
+  </div>
+</div>
+{% endblock content %}

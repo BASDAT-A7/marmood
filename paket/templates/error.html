@@ -1,0 +1,41 @@
+<!-- templates/error.html -->
+{% extends 'base.html' %} {% block meta %} {{ block.super }} {% endblock meta %}
+{% block content %}
+<style>
+  body,
+  html {
+    height: 100%;
+    margin: 0;
+    background-color: #1e1e1e;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+  }
+  .error-message {
+    background-color: #8a5cf5;
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  .go-back-button {
+    background-color: #ffffff;
+    color: #8a5cf5;
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+</style>
+<div class="container">
+  <h1 style="color: #8a5cf5">Error</h1>
+  <p class="error-message">{{ error_message }}</p>
+  <a href="{% url 'paket:show_paket' %}" class="go-back-button">Go back</a>
+</div>
+{% endblock content %}
