@@ -53,6 +53,7 @@ import uuid
 from django.shortcuts import render, redirect
 from django.db import connection
 
+# kalo gabisa pake trigger
 # def process_payment(request):
 #     if request.method == 'POST':
 
