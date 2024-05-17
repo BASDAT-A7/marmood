@@ -33,7 +33,11 @@
 </style>
 <div class="centered-container">
   <div class="message-box text-center">
+    {% if status != "Lagu ini sudah pernah Anda download" %}
     <p>Berhasil mengunduh Lagu dengan judul "{{ judul_lagu }}"!</p>
+    {% else %}
+    <p>Lagu "{{ judul_lagu }}" sudah pernah Anda download</p>
+    {% endif %}
     <a href="{% url 'downloaded:show_downloaded' %}" class="button"
       >KE DAFTAR DOWNLOAD</a
     >

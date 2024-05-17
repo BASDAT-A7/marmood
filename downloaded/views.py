@@ -56,6 +56,8 @@ def delete_song(request, id_song): #delete songs
 
     return render(request, "deleted.html")
 
+from django.db import transaction, IntegrityError
+
 def download_song(request, id_song):
     email = request.COOKIES.get("email", None)
     songs_title = query_result(f"""
@@ -63,20 +65,33 @@ def download_song(request, id_song):
         WHERE id = %s
         """, (id_song,))
 
-    result = query_result(f"""
-        BEGIN;
+    try:
+        with transaction.atomic():
+            query_result(f"""
+                INSERT INTO DOWNLOADED_SONG (id_song, email_downloader)
+                VALUES (%s, %s);
+                """, (id_song, email))
 
-        INSERT INTO DOWNLOADED_SONG (id_song, email_downloader)
-        VALUES (%s, %s);
+            query_result(f"""
+                UPDATE SONG
+                SET total_download = total_download + 1
+                WHERE id_konten = %s;
+                """, (id_song,))
+        
+        context = {
+            "judul_lagu": songs_title[0]['judul'],
+            "status": "Download successful"
+        }
 
-        UPDATE SONG
-        SET total_download = total_download + 1
-        WHERE id_konten = %s;
-
-        COMMIT;
-        """, (id_song, email, id_song))
-
-    context = {
-        "judul_lagu": songs_title[0]['judul']
-    }
+    except IntegrityError:
+        context = {
+            "judul_lagu": songs_title[0]['judul'],
+            "status": "Lagu ini sudah pernah Anda download"
+        }
+    debug = query_result("""
+                SELECT total_download 
+                FROM SONG
+                WHERE id_konten = %s
+            """, (id_song, ))
+    print("ini debug: ", debug)
     return render(request, "download_status.html", context)

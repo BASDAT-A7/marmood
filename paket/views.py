@@ -60,6 +60,7 @@ from django.db import connection
 
 #         roles = request.COOKIES['role']
 #         list_role = roles.split(" ")
+#         print("ini list_role: ", list_role)
 #         if "Premium" not in list_role:
 
 #             transaction_id = uuid.uuid4()
@@ -87,12 +88,12 @@ from django.db import connection
 #     else:
 #         return redirect('paket:show_paket')
 
-def process_payment(request): #dengan trigger
+def process_payment(request):
     if request.method == 'POST':
         roles = request.COOKIES['role']
         list_role = roles.split(" ")
+        print("ini list_role: ", list_role)
         if "Premium" not in list_role:
-            transaction_id = uuid.uuid4()
             jenis_paket = request.POST.get('jenis_paket')
             nominal = request.POST.get('nominal')
             metode_bayar = request.POST.get('metode_bayar')
@@ -102,15 +103,22 @@ def process_payment(request): #dengan trigger
 
             try:
                 with connection.cursor() as cursor:
+                    cursor.execute("SELECT COUNT(*) FROM PREMIUM WHERE email = %s", [email])
+                    premium_count = cursor.fetchone()[0]
+
+                    if premium_count > 0:
+                        return render(request, 'error.html', {'error_message': "Pengguna sudah berlangganan"})
+
                     cursor.callproc('AddPremiumSubscription', [
                         email, jenis_paket, timestamp_dimulai, timestamp_berakhir, metode_bayar, nominal
                     ])
                     connection.commit()
+
                 return redirect('paket:riwayat_transaksi')
             except Exception as e:
-                error_message = str(e)  # Get the error message
+                error_message = str(e)
                 return render(request, 'error.html', {'error_message': error_message})
         else:
-            return redirect('paket:show_paket')
+            return render(request, 'error.html', {'error_message': "Pengguna sudah berlangganan"})
     else:
         return redirect('paket:show_paket')
