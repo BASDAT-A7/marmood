@@ -1,0 +1,68 @@
+{% extends 'base.html' %} {% block content %}
+<style>
+  body,
+  html {
+    height: 100%;
+    margin: 0;
+    background-color: #1e1e1e;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  table {
+    width: 100%;
+    max-width: 900px;
+    background-color: #8a5cf5;
+    color: #ffffff;
+    margin-top: 20px;
+  }
+  th,
+  td {
+    padding: 10px;
+    text-align: center;
+  }
+  .back-button {
+    background-color: #ffffff;
+    color: #8a5cf5;
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+  }
+</style>
+<div class="container py-5">
+  <div class="text-center mb-5">
+    <h1 style="color: #8a5cf5">Riwayat Transaksi Paket</h1>
+  </div>
+  <table id="transactionHistoryTable">
+    <thead>
+      <tr>
+        <th>Jenis</th>
+        <th>Tanggal Dimulai</th>
+        <th>Tanggal Berakhir</th>
+        <th>Metode Pembayaran</th>
+        <th>Nominal</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for transaksi in riwayat_transaksi %}
+      <tr>
+        <td>{{ transaksi.jenis_paket }}</td>
+        <td>{{ transaksi.timestamp_dimulai }}</td>
+        <td>{{ transaksi.timestamp_berakhir }}</td>
+        <td>{{ transaksi.metode_bayar}}</td>
+        <td>{{ transaksi.nominal }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="mt-3">
+    <a href="{% url 'paket:show_paket' %}">
+      <button class="back-button">Kembali</button>
+    </a>
+  </div>
+</div>
+{% endblock content %}
