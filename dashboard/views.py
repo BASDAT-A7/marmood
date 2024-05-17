@@ -39,7 +39,7 @@ def show_dashboard(request):
         
         playlists = query_result(f"""
                             SELECT up.*
-                            FROM USER_PLAYLIST AS up
+                            FROM USERPLAYLIST AS up
                             WHERE up.email_pembuat = '{user_email}';
                                  """)
         
@@ -59,7 +59,7 @@ def show_dashboard(request):
         if 'Songwriter' in roles_list:
             songwriter_songs = query_result(f"""
                                     SELECT k.judul, s.*
-                                    FROM SONGWRITERWRITE AS sws
+                                    FROM SONGWRITERWRITESONG AS sws
                                     JOIN SONGWRITER AS sw ON sws.id_songwriter = sw.id
                                     JOIN SONG AS s ON sws.id_song = s.id_konten
                                     JOIN KONTEN AS k ON k.id = s.id_konten

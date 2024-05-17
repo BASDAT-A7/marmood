@@ -7,15 +7,15 @@
         color: #DADADA;
     }
     input[type="range"]::-webkit-slider-thumb {
-        background-color: #8A5CF5; /* Change the color to your desired color */
+        background-color: #8A5CF5;
     }
     
     input[type="range"]::-moz-range-thumb {
-        background-color: #8A5CF5; /* Change the color to your desired color */
+        background-color: #8A5CF5;
     }
     
     input[type="range"]::-ms-thumb {
-        background-color: #8A5CF5; /* Change the color to your desired color */
+        background-color: #8A5CF5;
     }
 </style>
 <div class="container mt-5" style="background-color: #1E1E1E;">
@@ -23,28 +23,27 @@
         <div class="card-body text-center" style="color: #8A5CF5;">
             <!-- Song Details Section -->
             <h2 class="card-title">Song Details</h2>
+            {% if song %}
             <ul class="list-group">
-                <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Title: Song Title</li>
-                <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Genre(s): Genre 1, Genre 2</li>
-                <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Artist(s): Artist 1, Artist 2</li>
-                <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Songwriter(s): Songwriter 1, Songwriter 2</li>
-                <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Length: 3:30</li>
-                <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Release Date: January 1, 2024</li>
-                <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Year: 2024</li>
-                <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Total Downloads: 100</li>
-                <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Album: Album Title</li>
+                <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Title: {{ song.song_title }}</li>
+                <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Genre(s): {{ song.genre }}</li>
+                <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Length: {{ song.durasi }}</li>
+                <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Release Date: {{ song.tanggal_rilis }}</li>
+                <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Year: {{ song.tahun }}</li>
+                <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Total Downloads: {{ song.total_unduhan }}</li>
+                <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Album: {{ album.album_title }}</li>
             </ul>
-
-            <!-- Song Progress Slider -->
-            <div class="mt-4">
-                <input type="range" class="form-range" id="songProgressSlider" style="background-color: #262626; color: #B3B3B3;">
-            </div>
+            {% else %}
+            <p>No song details found.</p>
+            {% endif %}
 
             <!-- Control Buttons -->
             <div class="mt-4">
                 <button class="btn btn-primary mr-2" style="background-color: #8A5CF5; color: #DADADA;">Play</button>
                 <button class="btn btn-success mr-2" data-toggle="modal" data-target="#addToPlaylistModal" style="background-color: #8A5CF5; color: #DADADA;">Add to Playlist</button>
+                {% if is_premium %}
                 <button class="btn btn-info mr-2" data-toggle="modal" data-target="#downloadConfirmationModal" style="background-color: #8A5CF5; color: #DADADA;">Download</button>
+                {% endif %}
                 <a href="#" class="btn btn-secondary" style="background-color: #8A5CF5; color: #DADADA;">Return</a>
             </div>
         </div>
@@ -62,11 +61,11 @@
                 <form id="addToPlaylistForm">
                     <div class="form-group">
                         <label for="playlistTitle">Song Title</label>
-                        <input type="text" class="form-control" id="playlistTitle" value="Song Title" readonly>
+                        <input type="text" class="form-control" id="playlistTitle" value="{{ song.song_title }}" readonly>
                     </div>
                     <div class="form-group">
                         <label for="artist">Artist</label>
-                        <input type="text" class="form-control" id="artist" value="Artist Name" readonly>
+                        <input type="text" class="form-control" id="artist" value="{{ artist.nama_artis }}" readonly>
                     </div>
                     <div class="form-group">
                         <label for="playlistSelect">Select Playlist</label>
@@ -106,4 +105,5 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 {% endblock content %}

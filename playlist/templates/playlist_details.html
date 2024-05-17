@@ -19,18 +19,22 @@
     <div class="card">
         <div class="card-body">
             <h4 class="text-center">User Playlist Detail</h4>
+            {% if playlist %}
             <ul class="list-group">
-                <li class="list-group-item"><b>Judul:</b> vibes</li>
-                <li class="list-group-item"><b>Pembuat:</b> marmuttestereyyyyy</li>
-                <li class="list-group-item"><b>Jumlah Lagu:</b> 21</li>
-                <li class="list-group-item"><b>Total Durasi:</b> 46 Menit</li>
-                <li class="list-group-item"><b>Tanggal Dibuat:</b> 1/1/2001</li>
-                <li class="list-group-item"><b>Deskripsi:</b> this is a playlist</li>
+                <li class="list-group-item"><b>Judul:</b> {{ playlist.judul }}</li>
+                <li class="list-group-item"><b>Pembuat:</b> {{ playlist.pembuat }}</li>
+                <li class="list-group-item"><b>Jumlah Lagu:</b> {{ playlist.jumlah_lagu }}</li>
+                <li class="list-group-item"><b>Total Durasi:</b> {{ playlist.total_durasi }}</li>
+                <li class="list-group-item"><b>Tanggal Dibuat:</b> {{ playlist.tanggal_dibuat }}</li>
+                <li class="list-group-item"><b>Deskripsi:</b> {{ playlist.deskripsi }}</li>
             </ul>
+            {% else %}
+            <p>No playlist details found.</p>
+            {% endif %}
 
             <div class="text-center mt-3">
                 <a href="#" class="btn btn-primary">Shuffle Play</a>
-                <a href="#" class="btn btn-secondary">Kembali</a>
+                <a href="{% url 'kelola_user' %}" class="btn btn-secondary">Kembali</a>
             </div>
 
             <h4 class="text-center mt-4">Daftar Lagu</h4>
@@ -45,16 +49,18 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for song in songs %}
                     <tr>
-                        <td>Ao no Sumika</td>
-                        <td>Tatsuya Kitani</td>
-                        <td>3:46</td>
+                        <td>{{ song.song_title }}</td>
+                        <td>{{ song.artist_name }}</td>
+                        <td>{{ song.durasi }}</td>
                         <td>
                             <button class="btn btn-info">Lihat</button>
                             <button class="btn btn-warning">Play</button>
                             <button class="btn btn-danger">Hapus</button>
                         </td>
                     </tr>
+                    {% endfor %}
                 </tbody>
             </table>
 
@@ -90,4 +96,5 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 {% endblock content %}
