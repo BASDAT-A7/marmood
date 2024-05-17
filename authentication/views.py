@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 import json
-from django.db import connection
+from django.db import connection, transaction
 from django.views.decorators.csrf import csrf_exempt
 import ast
 import datetime
+import uuid, random
 
 
 def login_page(request):
@@ -15,11 +16,106 @@ def login_page(request):
 def show_register(request):
     return render(request, "register.html")
 
+@csrf_exempt
 def show_register_pengguna(request):
-    return render(request, "registerPengguna.html")
+    if request.method == "POST":
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        nama = request.POST.get('nama')
+        gender = 1 if request.POST.get('gender') == 'Laki-laki' else 0
+        tempat_lahir = request.POST.get('tempat_lahir')
+        tanggal_lahir = request.POST.get('tanggal_lahir')
+        kota_asal = request.POST.get('kota_asal')
+        podcaster = request.POST.get('podcaster') == 'on'
+        artist = request.POST.get('artist') == 'on'
+        songwriter = request.POST.get('songwriter') == 'on'
 
+        is_verified = bool(podcaster or artist or songwriter)
+
+        try:
+            with transaction.atomic():  # Using transaction to ensure all queries are successful
+                with connection.cursor() as cursor:
+                    # Check if the email is already registered
+                    cursor.execute("SELECT email FROM akun WHERE email = %s UNION SELECT email FROM label WHERE email = %s", [email, email])
+                    if cursor.fetchone():
+                        return render(request, 'registerPengguna.html', {'message': 'Email sudah terdaftar sebagai Akun atau Label.'})
+
+                    # Insert user into database
+                    cursor.execute("INSERT INTO akun (email, password, nama, gender, tempat_lahir, tanggal_lahir, is_verified, kota_asal) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", 
+                                   [email, password, nama, gender, tempat_lahir, tanggal_lahir, is_verified, kota_asal])
+                    cursor.execute("INSERT INTO nonpremium VALUES (%s)", [email])
+
+                    if artist or songwriter:
+                        id_hak_cipta = str(uuid.uuid4())
+                        rate_royalti = random.randint(1, 500)
+                        cursor.execute(
+                            "INSERT INTO pemilik_hak_cipta (id, rate_royalti) VALUES (%s, %s)",
+                            (id_hak_cipta, rate_royalti)
+                        )
+                    if podcaster:
+                        cursor.execute("INSERT INTO podcaster (email) VALUES (%s)", [email])
+                    if artist:
+                        id_artist = str(uuid.uuid4())
+                        cursor.execute(
+                            "INSERT INTO artist (id, email_akun, id_pemilik_hak_cipta) VALUES (%s, %s, %s)",
+                            (id_artist, email, id_hak_cipta)
+                        )            
+                    if songwriter:
+                        id_songwriter = str(uuid.uuid4())
+                        cursor.execute(
+                            "INSERT INTO songwriter (id, email_akun, id_pemilik_hak_cipta) VALUES (%s, %s, %s)",
+                            (id_songwriter, email, id_hak_cipta)
+                        )
+                # Commit all changes if all operations were successful
+                connection.commit()
+
+        except Exception as e:
+            print(e)
+            connection.rollback()  # Roll back in case of error
+            return render(request, 'registerPengguna.html', {'message': 'An error occurred during registration. Please try again.'})
+
+        return render(request, "login.html")
+    else:
+        return render(request, "registerPengguna.html")
+
+@csrf_exempt
 def show_register_label(request):
-    return render(request, "registerLabel.html")
+    if request.method == "POST":
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        nama = request.POST.get('nama')
+        kontak = request.POST.get('kontak')
+
+        try:
+            with transaction.atomic():  # Ensure all database operations are transactional
+                with connection.cursor() as cursor:
+                    # Check if the email is already registered in 'akun' or 'label'
+                    cursor.execute("SELECT email FROM akun WHERE email = %s UNION SELECT email FROM label WHERE email = %s", [email, email])
+                    if cursor.fetchone():
+                        return render(request, 'register_label.html', {'message': 'Email sudah terdaftar sebagai Akun atau Label.'})
+
+                    id_label = str(uuid.uuid4())
+                    id_pemilik_hak_cipta = str(uuid.uuid4())
+                    rate_royalti = random.randint(1, 500)
+
+                    # Insert label into database
+                    cursor.execute(
+                        "INSERT INTO label (id, nama, email, password, kontak, id_pemilik_hak_cipta) VALUES (%s, %s, %s, %s, %s, %s)",
+                        [id_label, nama, email, password, kontak, id_pemilik_hak_cipta]
+                    )
+                    cursor.execute(
+                        "INSERT INTO pemilik_hak_cipta (id, rate_royalti) VALUES (%s, %s)",
+                        [id_pemilik_hak_cipta, rate_royalti]
+                    )
+                    connection.commit()
+        except Exception as e:
+            connection.rollback()
+            return render(request, 'registerLabel.html', {'message': 'Error registering label: {}'.format(str(e))})
+
+        return redirect('login.html')
+    else:
+        return render(request, "registerLabel.html")
+
 
 @csrf_exempt
 def login_view(request):

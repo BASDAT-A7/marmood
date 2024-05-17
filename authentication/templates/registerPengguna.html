@@ -38,7 +38,7 @@
         border: 1px solid #b3b3b3;
       }
       .form-control:focus {
-        background-color: #262626;
+        background-color: #dadada;
         border-color: #8a5cf5;
       }
       .btn-primary {
@@ -59,50 +59,51 @@
       <div class="card mb-4">
         <div class="card-body">
           <h3 class="card-title text-center">FORM REGISTRASI - Pengguna</h3>
-          <form>
+          <form method="post">
+            {% csrf_token %}  <!-- Ensure CSRF token is included for security -->
             <div class="form-group">
               <label>Email</label>
-              <input type="email" class="form-control" />
+              <input type="email" class="form-control" name="email" />  <!-- Added name attribute -->
             </div>
             <div class="form-group">
               <label>Password</label>
-              <input type="password" class="form-control" />
+              <input type="password" class="form-control" name="password" />  <!-- Added name attribute -->
             </div>
             <div class="form-group">
               <label>Nama</label>
-              <input type="text" class="form-control" />
+              <input type="text" class="form-control" name="nama" />  <!-- Added name attribute -->
             </div>
             <div class="form-group">
               <label>Gender</label>
-              <select class="form-control">
-                <option>Laki-laki</option>
-                <option>Perempuan</option>
+              <select class="form-control" name="gender">  <!-- Added name attribute -->
+                <option value="Laki-laki">Laki-laki</option>
+                <option value="Perempuan">Perempuan</option>
               </select>
             </div>
             <div class="form-group">
               <label>Tempat lahir</label>
-              <input type="text" class="form-control" />
+              <input type="text" class="form-control" name="tempat_lahir" />  <!-- Added name attribute -->
             </div>
             <div class="form-group">
               <label>Tanggal lahir</label>
-              <input type="date" class="form-control" />
+              <input type="date" class="form-control" name="tanggal_lahir" />  <!-- Added name attribute -->
             </div>
             <div class="form-group">
               <label>Kota asal</label>
-              <input type="text" class="form-control" />
+              <input type="text" class="form-control" name="kota_asal" />  <!-- Added name attribute -->
             </div>
             <div class="form-group">
               <label>Role</label>
               <div>
-                <label><input type="checkbox" /> Podcaster</label>
-                <label><input type="checkbox" /> Artist</label>
-                <label><input type="checkbox" /> Songwriter</label>
+                <label><input type="checkbox" name="podcaster" /> Podcaster</label>  <!-- Added name attribute -->
+                <label><input type="checkbox" name="artist" /> Artist</label>  <!-- Added name attribute -->
+                <label><input type="checkbox" name="songwriter" /> Songwriter</label>  <!-- Added name attribute -->
               </div>
             </div>
             <div class="text-center">
-              <a href="#" class="btn btn-primary">Register</a>
+              <button type="submit" class="btn btn-primary">Register</button>
             </div>
-          </form>
+          </form>          
         </div>
       </div>
     </div>
