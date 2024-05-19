@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.db import connection
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.urls import reverse
+from django.contrib import messages
 import uuid
 
 # Create your views here.
@@ -94,14 +95,17 @@ def show_detail_podcast(request, podcast_id):
 
 
 def manage_podcasts(request):
-    
+    from django.contrib import messages
+
+def manage_podcasts(request):
     if request.method == 'POST':
-        roles = request.COOKIES['role']
+        roles = request.COOKIES.get('role', '')
         list_role = roles.split(" ")
-        
+
         if "Podcaster" not in list_role:
-            return HttpResponseForbidden("You are not authorized to create podcasts.")
-        
+            messages.error(request, "You are not authorized to create podcasts.")
+            return HttpResponseRedirect(reverse('podcast:manage_podcasts'))
+
         title = request.POST.get('judul')
         genres = request.POST.getlist('genre')
         email_podcaster = request.COOKIES['email']
@@ -135,7 +139,6 @@ def manage_podcasts(request):
 
         podcast_data = []
         for podcast in podcasts:
-            # Unpack fetched data
             id_konten, judul, jumlah_episode, total_durasi = podcast
             total_hours = total_durasi // 60
             total_minutes = total_durasi % 60
@@ -153,20 +156,25 @@ def manage_podcasts(request):
 
         genre_list = [genre[0] for genre in genres]
 
+        roles = request.COOKIES.get('role', '')
+        is_podcaster = "Podcaster" in roles.split(" ")
+
         context = {
             'podcasts': podcast_data,
-            'genres': genre_list
+            'genres': genre_list,
+            'is_podcaster': is_podcaster,
         }
 
         return render(request, 'createPodcast.html', context)
 
 def manage_episodes(request, podcast_id):
     if request.method == 'POST':
-        roles = request.COOKIES['role']
+        roles = request.COOKIES.get('role', '')
         list_role = roles.split(" ")
-        
+
         if "Podcaster" not in list_role:
-            return HttpResponseForbidden("You are not authorized to create podcasts.")
+            messages.error(request, "You are not authorized to create episodes.")
+            return HttpResponseRedirect(reverse('podcast:manage_episodes', args=[podcast_id]))
 
         judul = request.POST.get('judul')
         deskripsi = request.POST.get('deskripsi')
@@ -239,55 +247,37 @@ def manage_episodes(request, podcast_id):
                 'tanggal_rilis': tanggal_rilis
             })
 
+        roles = request.COOKIES.get('role', '')
+        is_podcaster = "Podcaster" in roles.split(" ")
+
         context = {
             'podcast_id': podcast_id,
             'judul_podcast': judul_podcast,
-            'episodes': episode_data
+            'episodes': episode_data,
+            'is_podcaster': is_podcaster,
         }
 
         for episode in episode_data:
             print(episode)
 
-
         return render(request, 'createEpisode.html', context)
 
-
-
 def delete_podcast(request, podcast_id):
-    roles = request.COOKIES['role']
-    email = request.COOKIES['email']
-    print(email)
-
-    list_role = roles.split(" ")
-    print(list_role)
-    
-    queries = []
-    
-    if "Podcaster" in list_role:
-        try:
-            with connection.cursor() as cursor:
-                # Delete episodes related to this podcast first
-                cursor.execute("DELETE FROM EPISODE WHERE id_konten_podcast = %s", [podcast_id])
-                # Now delete the podcast
-                cursor.execute("DELETE FROM PODCAST WHERE id_konten = %s AND email_podcaster = %s", [podcast_id, email])
-                cursor.execute("DELETE FROM KONTEN WHERE id = %s", [podcast_id])
-                connection.commit()
-        except Exception as e:
-            connection.rollback()
-            print("An error occurred: ", e)
-        return HttpResponseRedirect(reverse('podcast:manage_podcasts'))
-    else:
-        return HttpResponseForbidden("You are not authorized to delete this podcast.")
+    email_podcaster = request.COOKIES['email']
+    try:
+        with connection.cursor() as cursor:
+            # Delete episodes related to this podcast first
+            cursor.execute("DELETE FROM EPISODE WHERE id_konten_podcast = %s", [podcast_id])
+            # Now delete the podcast
+            cursor.execute("DELETE FROM PODCAST WHERE id_konten = %s AND email_podcaster = %s", [podcast_id, email_podcaster])
+            cursor.execute("DELETE FROM KONTEN WHERE id = %s", [podcast_id])
+            connection.commit()
+    except Exception as e:
+        connection.rollback()
+        print("An error occurred: ", e)
+    return HttpResponseRedirect(reverse('podcast:manage_podcasts'))
 
 def delete_episode(request, podcast_id, episode_id):
-    roles = request.COOKIES['role']
-    email = request.COOKIES['email']
-    print(email)
-
-    list_role = roles.split(" ")
-    print(list_role)
-        
-    if "Podcaster" in list_role:
         try:
             with connection.cursor() as cursor:
                 # Delete the episode
@@ -297,8 +287,6 @@ def delete_episode(request, podcast_id, episode_id):
             connection.rollback()
             print("An error occurred: ", e)
         return HttpResponseRedirect(reverse('podcast:manage_episodes', args=[podcast_id]))
-    else:
-        return HttpResponseForbidden("You are not authorized to delete this episode.")
 
 def show_chart_list(request):
     with connection.cursor() as cursor:
@@ -332,13 +320,15 @@ def show_chart_detail(request, playlist_id):
         
         if chart:
             cursor.execute("""
-                SELECT K.judul, A.nama, K.tanggal_rilis, S.total_play
+                SELECT K.id, K.judul, A.nama, K.tanggal_rilis, S.total_play
                 FROM SONG S
                 JOIN KONTEN K ON S.id_konten = K.id
                 JOIN ARTIST AR ON S.id_artist = AR.id
                 JOIN AKUN A ON AR.email_akun = A.email
                 JOIN PLAYLIST_SONG PS ON PS.id_song = S.id_konten
-                WHERE PS.id_playlist = %s;
+                WHERE PS.id_playlist = %s AND S.total_play > 0
+                ORDER BY S.total_play DESC
+                LIMIT 20;
             """, [playlist_id])
             songs = cursor.fetchall()
         else:
@@ -348,10 +338,11 @@ def show_chart_detail(request, playlist_id):
         'chart_type': chart[0] if chart else 'No Chart Found',
         'songs': [
             {
-                'title': song[0],
-                'artist': song[1],
-                'release_date': song[2].strftime('%d/%m/%Y'),
-                'total_plays': song[3]
+                'id_konten': song[0],
+                'title': song[1],
+                'artist': song[2],
+                'release_date': song[3].strftime('%d/%m/%Y'),
+                'total_plays': song[4]
             } for song in songs
         ]
     }
