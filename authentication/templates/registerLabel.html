@@ -60,6 +60,12 @@
     <div class="card">
       <div class="card-body">
           <h3 class="card-title text-center">FORM REGISTRASI - Label</h3>
+          {% if message %}
+              <div class="alert alert-danger" role="alert">
+                  {{ message }}
+              </div>
+          {% endif %}
+
           <form method="post">
             {% csrf_token %}
             <div class="form-group">

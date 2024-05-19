@@ -107,7 +107,7 @@ def show_register_pengguna(request):
                     # Check if the email is already registered
                     cursor.execute("SELECT email FROM akun WHERE email = %s UNION SELECT email FROM label WHERE email = %s", [email, email])
                     if cursor.fetchone():
-                        return render(request, 'registerPengguna.html', {'message': 'Email sudah terdaftar sebagai Akun atau Label.'})
+                        return render(request, 'registerPengguna.html', {'message': 'Email already registered.'})
 
                     # Insert user into database
                     cursor.execute("INSERT INTO akun (email, password, nama, gender, tempat_lahir, tanggal_lahir, is_verified, kota_asal) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", 
@@ -166,7 +166,7 @@ def show_register_label(request):
                     # Check if the email is already registered in 'akun' or 'label'
                     cursor.execute("SELECT email FROM akun WHERE email = %s UNION SELECT email FROM label WHERE email = %s", [email, email])
                     if cursor.fetchone():
-                        return render(request, 'registerLabel.html', {'message': 'Email sudah terdaftar sebagai Akun atau Label.'})
+                        return render(request, 'registerLabel.html', {'message': 'Email already registered.'})
 
                     id_label = str(uuid.uuid4())
                     id_pemilik_hak_cipta = str(uuid.uuid4())
