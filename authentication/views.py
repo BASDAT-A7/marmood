@@ -27,8 +27,8 @@ def login_view(request):
         # Mendapatkan data dari permintaan POST
         email = request.POST.get('email')
         password = request.POST.get('password')
-        print(email)
-        print(password)
+        print("ini email: ", email)
+        print("ini password: ", password)
 
         # Lakukan proses autentikasi di sini
         with connection.cursor() as cursor:
@@ -38,7 +38,7 @@ def login_view(request):
                 cursor.execute("SELECT email, nama FROM label WHERE email = %s AND password = %s", [email, password])
                 user = cursor.fetchone()
                 
-            print("user", user[0])
+            print("ini user: ", user[0])
         
         if user:
             # Pengguna ditemukan, autentikasi berhasil

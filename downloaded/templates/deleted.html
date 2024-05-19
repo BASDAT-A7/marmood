@@ -37,7 +37,9 @@
     <p style="color: #ffffff">
       Berhasil menghapus Lagu dengan judul 'Song1' dari daftar unduhan!
     </p>
-    <a class="back-button">KEMBALI</a>
+    <a href="{% url 'downloaded:show_downloaded' %}" class="back-button"
+      >KEMBALI</a
+    >
   </div>
 </div>
 {% endblock content %}

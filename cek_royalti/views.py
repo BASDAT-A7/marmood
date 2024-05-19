@@ -13,7 +13,6 @@ def tampil_data(request):
     data = cursor.fetchall()
     cursor.close()
 
-    # print(data)
 
     context = {
         'data': data
@@ -23,16 +22,13 @@ def tampil_data(request):
 def data_royalti(request):
     roles = request.COOKIES['role']
     email = request.COOKIES['email']
-    print(email)
-
     list_role = roles.split(" ")
-    print(list_role)
+
     
     queries = []
     
     if "Artist" in list_role or ("Songwriter" in list_role):
         # Cari UUID dan id_pemilik_hak_cipta nya pake email di cookie
-        print("masuk")
         cursor = connection.cursor()
         cursor.execute("SELECT DISTINCT K.judul, AL.judul, S.total_play, S.total_download, S.total_play * P.rate_royalti " +
                        "FROM konten K, album AL, artist AR, song S, pemilik_hak_cipta P  " +
@@ -54,7 +50,6 @@ def data_royalti(request):
         cursor.close()
         queries += data
 
-    print(queries)
     context = {
         'nama' : request.COOKIES['nama'],
         'queries' : queries
