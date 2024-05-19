@@ -1,0 +1,84 @@
+{% extends 'base.html' %} {% load date_extras %}
+<!-- Make sure to load your custom template filters -->
+{% block meta %}{{ block.super }}{% endblock meta %} {% block content %}
+<style>
+  body,
+  html {
+    height: 100%;
+    margin: 0;
+    background-color: #1e1e1e;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  .card {
+    background-color: #8a5cf5;
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+  }
+  .card .card-body h5,
+  .card .card-body h6 {
+    color: #ffffff;
+  }
+</style>
+<div class="container py-5">
+  <div class="text-center mb-5">
+    <h1 style="color: #8a5cf5">Detail Paket Berlangganan</h1>
+    <p style="color: #8a5cf5">
+      Nikmati musik tanpa batas dengan paket {{ paket.jenis_paket }}
+    </p>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title text-uppercase text-center">
+        {{ paket.jenis_paket }}
+      </h5>
+      <h6 class="card-price text-center">
+        Rp{{ paket.harga }}<span class="term"></span>
+      </h6>
+      <ul>
+        <li>Akses tanpa batas ke semua lagu</li>
+        <li>Tanpa iklan</li>
+        <li>Download musik untuk diputar offline</li>
+        <li>Kualitas audio tinggi</li>
+      </ul>
+      <hr />
+      <form action="/paket/submit-payment" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="nominal" value="{{ paket.harga }}" />
+        <input
+          type="hidden"
+          name="jenis_paket"
+          value="{{ paket.jenis_paket }}"
+        />
+        <input
+          type="hidden"
+          name="timestamp_dimulai"
+          value="{{ current_date }}"
+        />
+        <input
+          type="hidden"
+          name="timestamp_berakhir"
+          value="{{ current_date|add_duration:paket.jenis_paket }}"
+        />
+        <div class="mb-3">
+          <label for="metodePembayaran" class="form-label"
+            >Metode Pembayaran:</label
+          >
+          <select class="form-select" id="metodePembayaran" name="metode_bayar">
+            <option value="transfer_bank">Transfer Bank</option>
+            <option value="kartu_kredit">Kartu Kredit</option>
+            <option value="e_wallet">E-wallet</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Bayar Sekarang</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}

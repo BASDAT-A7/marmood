@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'downloaded',
     'playlist',
     'dashboard',
+    'search_songs',
 ]
 
 MIDDLEWARE = [
