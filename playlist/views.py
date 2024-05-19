@@ -161,10 +161,9 @@ def song_details(request, song_id):
     album = query_result(album_query)
 
     user = query_result(f"""
-        SELECT akun.email, premium.akun_email
-        FROM akun
-        LEFT JOIN premium ON akun.email = premium.akun_email
-        WHERE akun.email = '{user_email}';
+        SELECT a.email, p.email
+        FROM akun as a, premium as p
+        WHERE a.email = '{user_email}' AND a.email = p.email;
     """)
 
     is_premium = user[0]['akun_email'] is not None if user else False
@@ -357,3 +356,11 @@ def play_lagu(request, song_id):
                 """, [user_email, song_id, now])
                 
     return redirect('play-song', song_id=song_id)
+
+def delete_playlist(request, playlist_id):
+    
+    user_email = request.COOKIES.get('email')
+    with connection.cursor() as cursor:
+        cursor.execute("DELETE FROM user_playlist WHERE id_user_playlist = %s AND email_pembuat = %s", [playlist_id, user_email])
+    
+    return redirect('kelola-user', playlist_id=playlist_id)

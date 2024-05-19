@@ -35,8 +35,8 @@
             {% endif %}
 
             <div class="text-center mt-3">
-                <a href="{% url 'shuffle-play' playlist_id = playlist_id %}" class="btn btn-primary">Shuffle Play</a>
-                <a href="{% url 'kelola-user' %}" class="btn btn-secondary">Kembali</a>
+                <a href="{% url 'playlist:shuffle-play' playlist_id %}" class="btn btn-primary">Shuffle Play</a>
+                <a href="{% url 'playlist:kelola-user' %}" class="btn btn-secondary">Kembali</a>
             </div>
 
             <h4 class="text-center mt-4">Daftar Lagu</h4>
@@ -57,9 +57,9 @@
                         <td>{{ song.artist_name }}</td>
                         <td>{{ song.durasi|format_duration }}</td>
                         <td>
-                            <a href="{% url 'play-song' song_id = song.id %}" class="btn btn-info">Lihat</a>
+                            <a href="{% url 'playlist:play-song' song.id %}" class="btn btn-info">Lihat</a>
                             <button class="btn btn-warning">Play</button>
-                            <form method="post" action="{% url 'delete-from-playlist' playlist_id = playlist.id_user_playlist song_id = song.id %}">
+                            <form method="post" action="{% url 'playlist:delete-from-playlist' playlist.id_user_playlist song.id %}">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-danger">Hapus</button>
                             </form>
@@ -81,7 +81,7 @@
                 <h5 class="modal-title" id="addSongModalLabel">Tambal Lagu</h5>
             </div>
             <div class="modal-body">
-                <form method="post" action="{% url 'add-song' playlist_id = playlist_id %}">
+                <form method="post" action="{% url 'playlist:add-song-formatted' playlist_id %}">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="song_artist">Song: Title - Artist</label>

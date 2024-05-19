@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from django.db import connection
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 import uuid
 
 # Create your views here.
+@csrf_exempt
 def kelola(request):
     email = request.COOKIES['email']
     nama = request.COOKIES['nama']
@@ -53,6 +55,7 @@ def kelola(request):
 
     return render(request, "kelola_album_song.html", context)
 
+@csrf_exempt
 def create_album(request):
     nama_pengguna = request.COOKIES['nama']
     with connection.cursor() as cursor:
@@ -118,6 +121,7 @@ def create_album(request):
 
     return render(request, "create_album.html", context)
 
+@csrf_exempt
 def create_lagu(request):
     if request.method == "POST":
         nama_album = request.POST.get('tambah-lagu')
@@ -163,6 +167,7 @@ def create_lagu(request):
 
     return render(request, "create_lagu.html", context)
 
+@csrf_exempt
 def delete_lagu(request): # ingetin perlu revisi
     if request.method == 'POST':
         target_lagu = request.POST.get('deleted-lagu')
@@ -189,6 +194,7 @@ def delete_lagu(request): # ingetin perlu revisi
     
     return render(request, "kelola_album_song.html")
 
+@csrf_exempt
 def delete_album(request):
     if request.method == 'POST':
         target_album = request.POST.get('deleted-album')
@@ -200,7 +206,7 @@ def delete_album(request):
                         WHERE id = %s''', [target_album])
         
     return render(request, "kelola_album_song.html") 
-
+@csrf_exempt
 def tambah_lagu(request):
     if request.method == 'POST':
         album = request.POST.get('album')
@@ -299,6 +305,7 @@ def tambah_lagu(request):
 
     return render(request, "create_lagu.html",)
 
+@csrf_exempt
 def tambah_album(request):
     if request.method == 'POST':
         album = request.POST.get('album')
