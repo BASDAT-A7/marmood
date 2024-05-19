@@ -88,21 +88,35 @@ WSGI_APPLICATION = 'marmood.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#   'default': {
+#     'ENGINE': 'django.db.backends.postgresql',
+#     'NAME': getenv('PGDATABASE'),
+#     'USER': getenv('PGUSER'),
+#     'PASSWORD': getenv('PGPASSWORD'),
+#     'HOST': getenv('PGHOST'),
+#     'PORT': getenv('PGPORT', 5432),
+#     'OPTIONS': {
+#       'sslmode': 'require',
+#     },
+#     'DISABLE_SERVER_SIDE_CURSORS': True,
+#   }
+# }
+
 DATABASES = {
   'default': {
     'ENGINE': 'django.db.backends.postgresql',
-    'NAME': 'marmut', #getenv('PGDATABASE')
-    'USER': 'marmut_owner', #getenv('PGUSER')
-    'PASSWORD': 'mYJo71VMELrZ', #getenv('PGPASSWORD')
-    'HOST': 'ep-long-bird-a5e28bqy.us-east-2.aws.neon.tech', #getenv('PGHOST')
-    'PORT': "", #getenv('PGPORT', 5432)
+    'NAME': 'marmut',
+    'USER': 'marmut_owner',
+    'PASSWORD': 'mYJo71VMELrZ' ,
+    'HOST': 'ep-long-bird-a5e28bqy.us-east-2.aws.neon.tech',
+    'PORT': "",
     'OPTIONS': {
       'sslmode': 'require',
     },
     'DISABLE_SERVER_SIDE_CURSORS': True,
   }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

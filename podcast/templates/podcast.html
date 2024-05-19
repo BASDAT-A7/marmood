@@ -1,3 +1,8 @@
+{% extends 'base.html' %}
+{% block meta %}
+{{ block.super }}
+{% endblock meta %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +13,7 @@
         body {
             background-color: #1E1E1E;
             color: #DADADA;
+            padding-top: 120px; /* Add padding to avoid overlap with navbar */
         }
         .card {
             background-color: #262626;
@@ -15,6 +21,12 @@
         }
         .card-title {
             color: #8A5CF5;
+        }
+        .card-text {
+            color: #DADADA; /* Ensure text color is visible */
+        }
+        .genre-list {
+            color: #DADADA; /* Ensure genre text color is visible */
         }
         .table {
             color: #DADADA;
@@ -43,18 +55,19 @@
         <div class="card mb-4">
             <div class="card-body">
                 <h2 class="card-title text-center">PODCAST DETAIL</h2>
-                <p class="card-text"><strong>Judul:</strong> Podcast1</p>
+                <p class="card-text"><strong>Judul:</strong> {{ podcast.judul }}</p>
                 <p class="card-text"><strong>Genre(s):</strong></p>
-                <ul class="list-unstyled">
-                    <li>Genre1</li>
-                    <li>Genre2</li>
+                <ul class="list-unstyled genre-list">
+                    {% for genre in podcast.genres %}
+                    <li>{{ genre }}</li>
+                    {% endfor %}
                 </ul>
-                <p class="card-text"><strong>Podcaster:</strong> Artist1</p>
-                <p class="card-text"><strong>Total Durasi:</strong> 8 jam 20 menit</p>
-                <p class="card-text"><strong>Tanggal Rilis:</strong> 18/03/24</p>
-                <p class="card-text"><strong>Tahun:</strong> 2024</p>
+                <p class="card-text"><strong>Podcaster:</strong> {{ podcast.podcaster }}</p>
+                <p class="card-text"><strong>Total Durasi:</strong> {{ podcast.total_durasi }}</p>
+                <p class="card-text"><strong>Tanggal Rilis:</strong> {{ podcast.tanggal_rilis }}</p>
+                <p class="card-text"><strong>Tahun:</strong> {{ podcast.tahun }}</p>
                 <div class="d-flex justify-content-center">
-                    <a href="#" class="btn btn-primary mt-2">Kembali</a>
+                    <a href="{% url 'podcast:manage_podcasts' %}" class="btn btn-primary mt-2">Kembali</a>
                 </div>
             </div>
         </div>
@@ -72,18 +85,14 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% for episode in episodes %}
                         <tr>
-                            <td>SubJudul1</td>
-                            <td>Lorem Ipsum ....</td>
-                            <td>59 menit</td>
-                            <td>18/03/2024</td>
+                            <td>{{ episode.judul_episode }}</td>
+                            <td>{{ episode.deskripsi }}</td>
+                            <td>{{ episode.durasi }}</td>
+                            <td>{{ episode.tanggal_rilis|date:"d/m/Y" }}</td>
                         </tr>
-                        <tr>
-                            <td>SubJudul2</td>
-                            <td>Lorem Ipsum ....</td>
-                            <td>1 jam 2 menit</td>
-                            <td>25/03/2024</td>
-                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
@@ -95,3 +104,4 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+{% endblock content %}

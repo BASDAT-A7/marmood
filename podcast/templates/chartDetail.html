@@ -1,3 +1,8 @@
+{% extends 'base.html' %}
+{% block meta %}
+{{ block.super }}
+{% endblock meta %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +13,7 @@
         body {
             background-color: #1E1E1E;
             color: #DADADA;
+            padding-top: 120px; /* Add padding to avoid overlap with navbar */
         }
         .card {
             background-color: #262626;
@@ -15,6 +21,9 @@
         }
         .card-title {
             color: #8A5CF5;
+        }
+        .card-text {
+            color: #DADADA; /* Ensure text color is visible */
         }
         .table {
             color: #DADADA;
@@ -48,20 +57,19 @@
 </head>
 <body>
     <div class="container mt-4">
-
         <div class="card mb-4">
             <div class="card-body">
                 <h2 class="card-title text-center">CHART DETAIL</h2>
-                <p class="text-center"><strong>Tipe:</strong> Daily Top 20</p>
+                <p class="card-text text-center"><strong>Tipe:</strong> {{ chart_type }}</p>
                 <div class="d-flex justify-content-center">
-                    <a href="#" class="btn btn-primary mt-2">Kembali</a>
+                    <a href="{% url 'podcast:show_chart_list' %}" class="btn btn-primary mt-2">Kembali</a>
                 </div>
             </div>
         </div>
 
         <div class="card mb-4">
             <div class="card-body">
-                <h2 class="card-title text-center">DAFTAR LAGU</h2>
+                <h2 class="card-title text-center">SONG LIST</h2>
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -73,20 +81,19 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% for song in songs %}
                         <tr>
-                            <td>Song1</td>
-                            <td>Artist1</td>
-                            <td>09/03/2024</td>
-                            <td>21000</td>
+                            <td>{{ song.title }}</td>
+                            <td>{{ song.artist }}</td>
+                            <td>{{ song.release_date }}</td>
+                            <td>{{ song.total_plays }}</td>
                             <td><a href="#" class="btn btn-info">Lihat</a></td>
                         </tr>
+                        {% empty %}
                         <tr>
-                            <td>Song2</td>
-                            <td>Artist2</td>
-                            <td>02/03/2024</td>
-                            <td>19000</td>
-                            <td><a href="#" class="btn btn-info">Lihat</a></td>
+                            <td colspan="5">No songs found.</td>
                         </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
@@ -98,3 +105,4 @@
     <script src="https://stackpath.bootstrap.com/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+{% endblock content %}

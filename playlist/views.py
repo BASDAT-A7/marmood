@@ -4,7 +4,7 @@ from django.shortcuts import redirect, render
 from functions.general import query_result
 from django.db import connection
 from django.http import HttpResponseRedirect
-from forms import AddPlaylistForm, AddSongForm, AddToPlaylistForm, EditPlaylistForm
+from .forms import AddPlaylistForm, AddSongForm, AddToPlaylistForm, EditPlaylistForm
 import uuid
 
 def generate_unique_id():
@@ -291,7 +291,6 @@ def download_song(request, song_id):
         cursor.execute("SELECT COUNT(*) FROM downloaded_song WHERE id_song = %s AND email_downloader = %s", [song_id, user_email])
         song_already_downloaded = cursor.fetchone()[0] > 0
 
-    with connection.cursor() as cursor:
         cursor.execute("SELECT judul FROM konten WHERE id = %s", [song_id])
         song_name = cursor.fetchone()[0]
 
