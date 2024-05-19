@@ -8,11 +8,12 @@ import ast
 import datetime
 import uuid, random
 
-
+@csrf_exempt
 def login_page(request):
     request.COOKIES['logged_in'] = "No"
     return render(request, "login.html")
 
+@csrf_exempt
 def show_register(request):
     return render(request, "register.html")
 
@@ -281,6 +282,7 @@ def login_view(request):
     response.delete_cookie('role')
     return response
 
+@csrf_exempt
 def logout(request):
     response = HttpResponse(render(request, 'login.html'))
     response.delete_cookie('email')
