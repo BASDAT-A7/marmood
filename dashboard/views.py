@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from functions.general import query_result
+from django.db import connection
 
 @login_required(login_url='/login')
 def show_dashboard(request):
@@ -31,6 +32,15 @@ def show_dashboard(request):
         })
     
     else:
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT COUNT(*) FROM PREMIUM WHERE email = %s", [user_email])
+            is_premium = cursor.fetchone()[0] > 0
+            
+        if is_premium:
+            status_langganan = "Premium"
+        else:
+            status_langganan = "Nonpremium"
+            
         user_info = query_result(f"""
                             SELECT a.*
                             FROM AKUN AS a
@@ -82,8 +92,13 @@ def show_dashboard(request):
         context.update({
             'user_info': user_info,
             'playlists': playlists,
-            'songs': songs if 'Artist' in roles_list or 'Songwriter' in roles_list else None,
-            'podcasts': podcasts if 'Podcaster' in roles_list else None,
+            'songs': songs,
+            'podcasts': podcasts,
+            'status_langganan': status_langganan,
+            'empty_playlists': len(playlists) == 0,
+            'empty_songs': len(songs) == 0,
+            'empty_podcasts': len(podcasts) == 0,
+            'empty_albums': len(albums) == 0,
         })
         
     return render(request, 'dashboard.html', context)

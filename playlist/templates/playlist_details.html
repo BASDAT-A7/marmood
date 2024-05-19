@@ -29,12 +29,12 @@
                 <li class="list-group-item"><b>Deskripsi:</b> {{ playlist.deskripsi }}</li>
             </ul>
             {% else %}
-            <p>No playlist details found.</p>
+            <p>Detail playlist tidak ditemukan.</p>
             {% endif %}
 
             <div class="text-center mt-3">
-                <a href="#" class="btn btn-primary">Shuffle Play</a>
-                <a href="{% url 'kelola_user' %}" class="btn btn-secondary">Kembali</a>
+                <a href="{% url 'shuffle-play' playlist_id = playlist_id %}" class="btn btn-primary">Shuffle Play</a>
+                <a href="{% url 'kelola-user' %}" class="btn btn-secondary">Kembali</a>
             </div>
 
             <h4 class="text-center mt-4">Daftar Lagu</h4>
@@ -55,43 +55,47 @@
                         <td>{{ song.artist_name }}</td>
                         <td>{{ song.durasi }}</td>
                         <td>
-                            <button class="btn btn-info">Lihat</button>
+                            <a href="{% url 'play-song' song_id = song.id %}" class="btn btn-info">Lihat</a>
                             <button class="btn btn-warning">Play</button>
-                            <button class="btn btn-danger">Hapus</button>
+                            <form method="post" action="{% url 'delete-from-playlist' playlist_id = playlist.id_user_playlist song_id = song.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Hapus</button>
+                            </form>
                         </td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
 
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addSongModal">Add a Song</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addSongModal">Tambah Lagu</button>
         </div>
     </div>
 </div>
 
-<!-- Add New Playlist Modal -->
 <div class="modal fade" id="addSongModal" tabindex="-1" role="dialog" aria-labelledby="addSongModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content" style="background-color: #262626; color: #B3B3B3;">
             <div class="modal-header">
-                <h5 class="modal-title" id="addSongModalLabel">Add a Song</h5>
+                <h5 class="modal-title" id="addSongModalLabel">Tambal Lagu</h5>
             </div>
             <div class="modal-body">
-                <!-- Form -->
-                <form>
+                <form method="post" action="{% url 'add-song' playlist_id = playlist_id %}">
+                    {% csrf_token %}
                     <div class="form-group">
-                        <label for="Song">Song: Title - Artist</label>
-                        <input type="text" class="form-control" id="SongTitle" placeholder="Enter title">
+                        <label for="song_artist">Song: Title - Artist</label>
+                        <input type="text" class="form-control" id="song_artist" name="song_artist" placeholder="Enter title - artist">
                     </div>
-                </form>
+                    <input type="hidden" name="playlist_id" value="{{ playlist.id_user_playlist }}">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

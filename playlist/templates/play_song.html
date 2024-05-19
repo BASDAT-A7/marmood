@@ -21,70 +21,75 @@
 <div class="container mt-5" style="background-color: #1E1E1E;">
     <div class="card" style="background-color: #262626;">
         <div class="card-body text-center" style="color: #8A5CF5;">
-            <!-- Song Details Section -->
             <h2 class="card-title">Song Details</h2>
             {% if song %}
             <ul class="list-group">
-                <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Title: {{ song.song_title }}</li>
+                <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Judul: {{ song.song_title }}</li>
                 <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Genre(s): {{ song.genre }}</li>
-                <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Length: {{ song.durasi }}</li>
-                <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Release Date: {{ song.tanggal_rilis }}</li>
-                <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Year: {{ song.tahun }}</li>
+                <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Artist: {{ artist.nama_artis }}</li>
+                <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Songwriter(s): {{ songwriter.nama_songwriter }}</li>
+                <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Durasi: {{ song.durasi }}</li>
+                <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Tanggal Rilis: {{ song.tanggal_rilis }}</li>
+                <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Tahun: {{ song.tahun }}</li>
                 <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Total Downloads: {{ song.total_unduhan }}</li>
                 <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Album: {{ album.album_title }}</li>
+                <form method="post" action="{% url 'play-lagu' song_id=song.id %}">
+                    {% csrf_token %}
+                    <input type="range" min="0" max="100" value="50" name="song_progress" class="slider" id="song_progress">
+                    <button type="submit" class="btn btn-primary mr-2" style="background-color: #8A5CF5; color: #DADADA;">Play</button>
+                </form>
+                
             </ul>
             {% else %}
             <p>No song details found.</p>
             {% endif %}
 
-            <!-- Control Buttons -->
             <div class="mt-4">
-                <button class="btn btn-primary mr-2" style="background-color: #8A5CF5; color: #DADADA;">Play</button>
+                <a href= "{% url 'play-song' song_id = song.id %}" class="btn btn-primary mr-2" style="background-color: #8A5CF5; color: #DADADA;">Play</a>
                 <button class="btn btn-success mr-2" data-toggle="modal" data-target="#addToPlaylistModal" style="background-color: #8A5CF5; color: #DADADA;">Add to Playlist</button>
                 {% if is_premium %}
-                <button class="btn btn-info mr-2" data-toggle="modal" data-target="#downloadConfirmationModal" style="background-color: #8A5CF5; color: #DADADA;">Download</button>
+                <a href="{% url 'download-song' song_id = song.id %}" class="btn btn-info mr-2" style="background-color: #8A5CF5; color: #DADADA;" data-toggle="modal" data-target="#downloadConfirmationModal">Download</a>
                 {% endif %}
-                <a href="#" class="btn btn-secondary" style="background-color: #8A5CF5; color: #DADADA;">Return</a>
+                <a href="{% url 'kelola-playlist' %}" class="btn btn-secondary" style="background-color: #8A5CF5; color: #DADADA;">Kembali</a>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Add to Playlist Modal -->
 <div class="modal fade" id="addToPlaylistModal" tabindex="-1" role="dialog" aria-labelledby="addToPlaylistModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #262626;">
-                <h5 class="modal-title" id="addToPlaylistModalLabel" style="color: #B3B3B3;">Add to Playlist</h5>
+                <h5 class="modal-title" id="addToPlaylistModalLabel" style="color: #B3B3B3;">Add Song to User Playlist</h5>
             </div>
             <div class="modal-body" style="background-color: #262626; color: #B3B3B3;">
-                <form id="addToPlaylistForm">
-                    <div class="form-group">
-                        <label for="playlistTitle">Song Title</label>
-                        <input type="text" class="form-control" id="playlistTitle" value="{{ song.song_title }}" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="artist">Artist</label>
-                        <input type="text" class="form-control" id="artist" value="{{ artist.nama_artis }}" readonly>
-                    </div>
+                <label for="playlistTitle">Song Title</label>
+                <label class="form-control" id="playlistTitle">{{ song.song_title }}</label>
+                <label for="artist">Artist</label>
+                <label class="form-control" id="artist">{{ artist.nama_artis }}</label>
+                <form method="post" action="{% url 'add_song_to_playlist' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="song_id" value="{{ song.id }}">
+                    <input type="hidden" name="song_title" value="{{ song.song_title }}">
+                    <input type="hidden" name="artist_name" value="{{ artist.nama_artis }}">
                     <div class="form-group">
                         <label for="playlistSelect">Select Playlist</label>
-                        <select class="form-control" id="playlistSelect">
-                            <option>Playlist 1</option>
-                            <option>Playlist 2</option>
+                        <select class="form-control" id="playlistSelect" name="playlist_id">
+                            {% for playlist in playlists %}
+                                <option value="{{ playlist.id }}">{{ playlist.judul }}</option>
+                            {% endfor %}
                         </select>
                     </div>
+                    <div class="modal-footer" style="background-color: #262626;">
+                        <button type="submit" class="btn btn-primary" style="background-color: #8A5CF5; color: #DADADA;">Tambah</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color: #8A5CF5; color: #DADADA;">Kembali</button>
+                    </div>
                 </form>
-            </div>
-            <div class="modal-footer" style="background-color: #262626;">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color: #8A5CF5; color: #DADADA;">Close</button>
-                <button type="submit" class="btn btn-primary" style="background-color: #8A5CF5; color: #DADADA;">Add Song</button>
-            </div>
+            </div>        
         </div>
     </div>
 </div>
 
-<!-- Download Confirmation Modal -->
 <div class="modal fade" id="downloadConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="downloadConfirmationModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -92,10 +97,31 @@
                 <h5 class="modal-title" id="downloadConfirmationModalLabel" style="color: #B3B3B3;">Download Song</h5>
             </div>
             <div class="modal-body" style="background-color: #262626; color: #B3B3B3;">
-                <p>Song successfully downloaded!</p>
+                <p>{{ message }}</p>
             </div>
             <div class="modal-footer" style="background-color: #262626;">
-                <a href="#" class="btn btn-primary" style="background-color: #8A5CF5; color: #DADADA;">Go to Downloads</a>
+                {% if song_downloaded %}
+                    <a href="{% url 'url for downloaded songs' %}" class="btn btn-primary" style="background-color: #8A5CF5; color: #DADADA;">Ke Dafter Download</a>
+                {% else %}
+                    <a href="{% url 'kelola-user' %}" class="btn btn-primary" style="background-color: #8A5CF5; color: #DADADA;">Ke Playlist</a>
+                {% endif %}
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color: #8A5CF5; color: #DADADA;">Kembali</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #262626;">
+                <h5 class="modal-title" id="messageModalLabel" style="color: #B3B3B3;">Message</h5>
+            </div>
+            <div class="modal-body" style="background-color: #262626; color: #B3B3B3;">
+                <p>{{ message }}</p>
+            </div>
+            <div class="modal-footer" style="background-color: #262626;">
+                    <a href="{% url 'playlist-details' playlist_id = playlist_id %}" class="btn btn-primary" style="background-color: #8A5CF5; color: #DADADA;">Ke Playlist</a>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color: #8A5CF5; color: #DADADA;">Close</button>
             </div>
         </div>
