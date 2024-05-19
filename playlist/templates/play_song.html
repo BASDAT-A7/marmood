@@ -35,7 +35,7 @@
                 <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Tahun: {{ song.tahun }}</li>
                 <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Total Downloads: {{ song.total_unduhan }}</li>
                 <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Album: {{ album.album_title }}</li>
-                <form method="post" action="{% url 'play-lagu' song_id=song.id %}">
+                <form method="post" action="{% url 'playlist:play-lagu' song.id %}">
                     {% csrf_token %}
                     <input type="range" min="0" max="100" value="50" name="song_progress" class="slider" id="song_progress">
                     <button type="submit" class="btn btn-primary mr-2" style="background-color: #8A5CF5; color: #DADADA;">Play</button>
@@ -47,12 +47,12 @@
             {% endif %}
 
             <div class="mt-4">
-                <a href= "{% url 'play-song' song_id = song.id %}" class="btn btn-primary mr-2" style="background-color: #8A5CF5; color: #DADADA;">Play</a>
+                <a href= "{% url 'playlist:play-song' song.id %}" class="btn btn-primary mr-2" style="background-color: #8A5CF5; color: #DADADA;">Play</a>
                 <button class="btn btn-success mr-2" data-toggle="modal" data-target="#addToPlaylistModal" style="background-color: #8A5CF5; color: #DADADA;">Add to Playlist</button>
                 {% if is_premium %}
-                <a href="{% url 'download-song' song_id = song.id %}" class="btn btn-info mr-2" style="background-color: #8A5CF5; color: #DADADA;" data-toggle="modal" data-target="#downloadConfirmationModal">Download</a>
+                <a href="{% url 'playlist:download-song' song.id %}" class="btn btn-info mr-2" style="background-color: #8A5CF5; color: #DADADA;" data-toggle="modal" data-target="#downloadConfirmationModal">Download</a>
                 {% endif %}
-                <a href="{% url 'kelola-playlist' %}" class="btn btn-secondary" style="background-color: #8A5CF5; color: #DADADA;">Kembali</a>
+                <a href="{% url 'playlist:kelola-playlist' %}" class="btn btn-secondary" style="background-color: #8A5CF5; color: #DADADA;">Kembali</a>
             </div>
         </div>
     </div>
@@ -69,7 +69,7 @@
                 <label class="form-control" id="playlistTitle">{{ song.song_title }}</label>
                 <label for="artist">Artist</label>
                 <label class="form-control" id="artist">{{ artist.nama_artis }}</label>
-                <form method="post" action="{% url 'add_song_to_playlist' %}">
+                <form method="post" action="{% url 'playlist:add-song' %}">
                     {% csrf_token %}
                     <input type="hidden" name="song_id" value="{{ song.id }}">
                     <input type="hidden" name="song_title" value="{{ song.song_title }}">
@@ -103,9 +103,9 @@
             </div>
             <div class="modal-footer" style="background-color: #262626;">
                 {% if song_downloaded %}
-                    <a href="{% url 'url for downloaded songs' %}" class="btn btn-primary" style="background-color: #8A5CF5; color: #DADADA;">Ke Dafter Download</a>
+                    <a href="{% url 'downloaded' %}" class="btn btn-primary" style="background-color: #8A5CF5; color: #DADADA;">Ke Dafter Download</a>
                 {% else %}
-                    <a href="{% url 'kelola-user' %}" class="btn btn-primary" style="background-color: #8A5CF5; color: #DADADA;">Ke Playlist</a>
+                    <a href="{% url 'playlist:kelola-user' %}" class="btn btn-primary" style="background-color: #8A5CF5; color: #DADADA;">Ke Playlist</a>
                 {% endif %}
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color: #8A5CF5; color: #DADADA;">Kembali</button>
             </div>
@@ -123,7 +123,7 @@
                 <p>{{ message }}</p>
             </div>
             <div class="modal-footer" style="background-color: #262626;">
-                    <a href="{% url 'playlist-details' playlist_id = playlist_id %}" class="btn btn-primary" style="background-color: #8A5CF5; color: #DADADA;">Ke Playlist</a>
+                    <a href="{% url 'playlist:playlist-details' playlist_id %}" class="btn btn-primary" style="background-color: #8A5CF5; color: #DADADA;">Ke Playlist</a>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color: #8A5CF5; color: #DADADA;">Close</button>
             </div>
         </div>

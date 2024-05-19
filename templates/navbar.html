@@ -36,7 +36,7 @@
 
     console.log(list_role.length === 1);
 
-    navbarContent += `<a href="" style="text-decoration: none; " class="btn btn-primary"> Dashboard </a>`;
+    navbarContent += `<a href="{% url 'dashboard:dashboard' %}" style="text-decoration: none; " class="btn btn-primary"> Dashboard </a>`;
 
     if (
       list_role.indexOf("Artist") !== -1 ||
@@ -50,7 +50,7 @@
                     <input type="text" name="q" placeholder="Cari..." class="search-input">
                     <button type="submit" class="search-button">Cari</button>
                 </form>
-                <a href="" style="text-decoration: none;" class="btn btn-primary">Kelola Playlist</a>
+                <a href="{% url 'playlist:kelola-user' %}" style="text-decoration: none;" class="btn btn-primary">Kelola Playlist</a>
                 <a href="{% url 'paket:show_paket' %}" style="text-decoration: none;" class="btn btn-primary">Langganan Paket</a>`;
     }
 
