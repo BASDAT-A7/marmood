@@ -61,10 +61,19 @@
         <td>{{ song.judul }}</td>
         <td>{{ song.oleh }}</td>
         <td>
+          {% if song.type == 'PODCAST' %}
+          <a href="">
+            <button class="detail-button">Lihat</button>
+          </a>
+          {% if song.type == 'USER_PLAYLIST' %}
+          <a href="">
+            <button class="detail-button">Lihat</button>
+          </a>
+          {% else %}
           <a href="{% url 'playlist:play-song' song_id=song.id_konten %}">
             <button class="detail-button">Lihat</button>
           </a>
-          {% if 'Premium' in list_role and song.type == 'SONG' %}
+          {% endif %} {% if 'Premium' in list_role and song.type == 'SONG' %}
           <a href="{% url 'downloaded:download_song' id_song=song.id_konten %}">
             <button class="download-button">Download</button>
           </a>
