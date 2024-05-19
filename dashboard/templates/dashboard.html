@@ -30,61 +30,110 @@
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">User Information</h5>
-                        <p class="card-text">Nama: insert label name</p>
-                        <p class="card-text">Email: label@example.com</p>
-                        <p class="card-text">Kontak: UHHHHH</p>
-                        <!--
-                            Bukan untuk label
-                            <p class="card-text">Kota Asal: DKI Jakarta</p>
-                        <p class="card-text">Gender: Male</p>
-                        <p class="card-text">Tempat Lahir: DKI Jakarta</p>
-                        <p class="card-text">Tanggal Lahir: 1/1/2001</p>
-                        <p class="card-text">Roles: Artist, Podcaster</p>-->
+                        {% if user_info %}
+                            <p class="card-text">Nama: {{ user_info.nama }}</p>
+                            <p class="card-text">Email: {{ user_info.email }}</p>
+                            {% if user_info.kontak %}
+                                <p class="card-text">Kontak: {{ user_info.kontak }}</p>
+                            {% endif %}
+                            {% if user_info.kota_asal %}
+                                <p class="card-text">Status Langganan: {{ status_langganan }}</p>
+                                <p class="card-text">Kota Asal: {{ user_info.kota_asal }}</p>
+                                <p class="card-text">Gender: {{ user_info.gender }}</p>
+                                <p class="card-text">Tempat Lahir: {{ user_info.tempat_lahir }}</p>
+                                <p class="card-text">Tanggal Lahir: {{ user_info.tanggal_lahir }}</p>
+                                <p class="card-text">Roles: {{ request.COOKIES.get('role') }}</p>
+                            {% endif %}
+                        {% endif %}
                     </div>
                 </div>
             </div>
             <!-- Right column for playlists/songs/etc -->
             <div class="col-md-8">
-                <!-- Playlists section -->
-                <!--<div class="card" id="list-card">
-                    <div class="card-body">
-                        <h5 class="card-title">Playlists</h5>
-                        <ul class="list-group">
-                            <li class="list-group-item">Playlist 1</li>
-                            <li class="list-group-item">Playlist 2</li>
-                        </ul>
-                    </div>
-                </div>-->
-                <!-- Songs section (if user is an artist/songwriter) -->
-                <!--<div class="card mt-3" id="list-card">
-                    <div class="card-body">
-                        <h5 class="card-title">Songs</h5>
-                        <ul class="list-group">
-                            <li class="list-group-item" style="background-color: #8A5CF5; color: #DADADA;">Song 1</li>
-                            <li class="list-group-item">Song 2</li>
-                        </ul>
-                    </div>
-                </div>-->
-                <!-- Podcasts section (if user is a podcaster) -->
-                <!--<div class="card mt-3" id="list-card">
-                    <div class="card-body">
-                        <h5 class="card-title">Podcasts</h5>
-                        <ul class="list-group">
-                            <li class="list-group-item">Podcast 1</li>
-                            <li class="list-group-item">Podcast 2</li>
-                        </ul>
-                    </div>
-                </div>-->
-                <!-- Albums section (if user is a label) -->
-                <div class="card mt-3" id="list-card">
-                    <div class="card-body">
-                        <h5 class="card-title">Albums</h5>
-                        <ul class="list-group">
-                            <li class="list-group-item">Album 1</li>
-                            <li class="list-group-item">Album 2</li>
-                        </ul>
-                    </div>
-                </div>
+                <!-- Playlists Container -->
+                {% if playlists %}
+                    {% if empty_playlists %}
+                        <div class="card mt-3" id="list-card">
+                            <div class="card-body">
+                                <p>No playlists found.</p>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="card mt-3" id="list-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Playlists</h5>
+                                <ul class="list-group">
+                                    {% for playlist in playlists %}
+                                        <li class="list-group-item">{{ playlist.judul }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+                <!-- Songs Container -->
+                {% if songs %}
+                    {% if empty_songs %}
+                        <div class="card mt-3" id="list-card">
+                            <div class="card-body">
+                                <p>No songs found.</p>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="card mt-3" id="list-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Songs</h5>
+                                <ul class="list-group">
+                                    {% for song in songs %}
+                                        <li class="list-group-item">{{ song.judul }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+                <!-- Podcasts Container) -->
+                {% if podcasts %}
+                    {% if empty_podcasts %}
+                        <div class="card mt-3" id="list-card">
+                            <div class="card-body">
+                                <p>No podcasts found.</p>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="card mt-3" id="list-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Podcasts</h5>
+                                <ul class="list-group">
+                                    {% for podcast in podcasts %}
+                                        <li class="list-group-item">{{ podcast.judul }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+                <!-- Albums Container -->
+                {% if albums %}
+                    {% if empty_albums %}
+                        <div class="card mt-3" id="list-card">
+                            <div class="card-body">
+                                <p>No albums found.</p>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="card mt-3" id="list-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Albums</h5>
+                                <ul class="list-group">
+                                    {% for album in albums %}
+                                        <li class="list-group-item">{{ album.nama }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
             </div>
         </div>
     </div>
