@@ -5,28 +5,27 @@
     <title>Create Album</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/navbar.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/form_album.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/form_lagu.css' %}">
 {% endblock meta %}
 
 {% block content %}
     <body class="body-album">
         <div class="container">
             <h2>Create Album</h2>
-            <form>
-              <div class="form-group">
+            <form id="form-album" method="post" action="{% url 'kelola_album_song:tambah-album' %}">
+              <!-- <div class="form-group">
                 <label for="judul">Judul:</label>
                 <input type="text" class="form-control" id="judul" placeholder="Judul Album">
               </div>
               <div class="form-group">
                 <label for="label">Label:</label>
                 <select class="form-control" id="label">
-                  <!-- Option list for labels (to be populated dynamically) -->
-                  <!-- For now, let's assume some sample options -->
                   <option>Label 1</option>
                   <option>Label 2</option>
                   <option>Label 3</option>
                 </select>
               </div>
-              <button type="submit" class="btn btn-primary-2">Submit</button>
+              <button type="submit" class="btn btn-primary-2">Submit</button> -->
             </form>
           </div>
         
@@ -35,4 +34,158 @@
           <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
           <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
     </body>
+    <script>
+      function getCookie(name) {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.indexOf(name + '=') == 0) {
+                return cookie.substring(name.length + 1, cookie.length);
+            }
+        }
+        return '';
+      }
+
+    
+      var cookieValueRole = getCookie('role');
+      var list_role = cookieValueRole.replaceAll('"','').split(" ");
+
+      pageContent = `{% csrf_token %}
+              <div class="form-group">
+                <label for="album">Album:</label>
+                <input type="text" class="form-control" id="album" name="album">
+              </div>
+              <div class="form-group">
+                <label for="labels">Label:</label>
+                <select class="form-control" id="labels" name="labels">
+                  {% for label in labels %}
+                    <option value="{{ label.0 }}">{{ label.0 }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <br>
+              <h5>Lagu Pertama</h5>
+              <div class="form-group">
+                <label for="judul">Judul:</label>
+                <input type="text" class="form-control" id="judul" name="judul" placeholder="Judul Lagu">
+              </div>`
+
+      if (list_role.indexOf("Artist") !== -1 && list_role.indexOf("Songwriter") !== -1) {
+        console.log("asdasd" + 1)
+        pageContent += `
+        <div class="form-group">
+          <label for="options-ar">Artist:</label>
+          <input type="text" class="form-control" id="options-ar" name="options-ar" value="{{ nama_pengguna }}" readonly>
+          </div>
+          <div class="form-group">
+            <label for="options-sw">Songwriter:</label>
+            <select multiple name="options-sw" id="options-sw">
+              {% for songwriter in songwriters %}
+                {% if songwriter.0 == nama_pengguna %}
+                  <option value="{{ songwriter.0 }}" selected disable>{{ songwriter.0 }}</option>
+                {% else %}
+                  <option value="{{ songwriter.0 }}">{{ songwriter.0 }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+          </div>`
+
+      } else if (list_role.indexOf('Songwriter') !== -1){
+        console.log(2)
+
+        pageContent += `
+              <div class="form-group">
+                <label for="options-ar">Artist:</label>
+                <select name="options-ar" id='options-ar'>
+                  {% for artist in artists %}
+                    <option value="{{ artist.0 }}">{{ artist.0 }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="options-sw">Songwriter:</label>
+                <select multiple name="options-sw" id="options-sw">
+                  {% for songwriter in songwriters %}
+                    {% if songwriter.0 == nama_pengguna %}
+                      <option value="{{ songwriter.0 }}" selected disable>{{ songwriter.0 }}</option>
+                    {% else %}
+                      <option value="{{ songwriter.0 }}">{{ songwriter.0 }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>`
+
+      } else if (list_role.indexOf("Artist") !== -1) {
+        console.log(3)
+
+        pageContent += `
+              <div class="form-group">
+                <label for="options-ar">Artist:</label>
+                <input type="text" class="form-control" id="options-ar" name="options-ar" value="{{ nama_pengguna }}">
+              </div>
+              <div class="form-group">
+                <label for="options-sw">Songwriter:</label>
+                <select multiple name="options-sw" id="options-sw">
+                  {% for songwriter in songwriters %}
+                    {% if songwriter.0 == nama_pengguna %}
+                      <option value="{{ songwriter.0 }}" selected disable>{{ songwriter.0 }}</option>
+                    {% else %}
+                      <option value="{{ songwriter.0 }}">{{ songwriter.0 }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>`
+      }
+
+      pageContent += `div class="form-group">
+                <label for="genre">Genre:</label>
+                <select multiple class="form-control" id="genre" name="genre">
+                  <option>Pop</option>
+                  <option>R&B</option>
+                  <option>Rock</option>
+                  <option>Country</option>
+                  <option>Hip Hop</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="durasi">Durasi:</label>
+                <input type="text" class="form-control" id="durasi" placeholder="Duration" name="durasi">
+              </div>
+              <button type="submit" class="btn btn-primary-2">Submit</button>`
+      
+      document.getElementById('form-album').innerHTML = pageContent;
+      
+      document.addEventListener('DOMContentLoaded', function() {
+            var select = document.getElementById('options-sw');
+            var defaultOptionValue = getCookie('nama');
+
+            select.addEventListener('mousedown', function(event) {
+                var options = select.options;
+
+                // Jika tombol Ctrl atau Command tidak ditekan, cegah perubahan
+                if (!event.ctrlKey && !event.metaKey) {
+                    event.preventDefault();
+                    // Pastikan opsi default tetap terpilih
+                    for (var i = 0; i < options.length; i++) {
+                        if (options[i].value === defaultOptionValue) {
+                            options[i].selected = true;
+                            options[i].style.backgroundColor = "#e9ecef"; // Optional: Highlight the default option
+                        }
+                    }
+                }
+            });
+
+            // Pastikan opsi default tetap terpilih saat pengiriman formulir
+            select.addEventListener('change', function() {
+                var options = select.options;
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].value === defaultOptionValue) {
+                        options[i].selected = true;
+                    }
+                }
+            });
+        });
+
+    </script>
+
 {% endblock content %}

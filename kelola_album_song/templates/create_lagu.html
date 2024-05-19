@@ -5,41 +5,45 @@
     <title>Create Lagu</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/navbar.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/form_lagu.css' %}">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 {% endblock meta %}
 
 {% block content %}
     <body class="body-lagu">
         <div class="container">
             <h2>Create Lagu</h2>
-            <form>
-              <div class="form-group">
+            <form id="form-lagu" method="post" action="{% url 'kelola_album_song:tambah-lagu' %}">
+              
+              <!-- <div class="form-group">
                 <label for="album">Album:</label>
                 <input type="text" class="form-control" id="album" placeholder="Album1">
-              </div>
-              <div class="form-group">
+              </div> -->
+              <!-- <div class="form-group">
                 <label for="judul">Judul:</label>
                 <input type="text" class="form-control" id="judul" placeholder="Judul Lagu">
-              </div>
-              <div class="form-group">
+              </div> -->
+              <!-- <div class="form-group">
                 <label for="artist">Artist:</label>
                 <input type="text" class="form-control" id="artist" placeholder="Artist Name">
               </div>
               <div class="form-group">
                 <label for="songwriter">Songwriter:</label>
-                <select multiple class="form-control" id="songwriter">
+                <select multiple class="form-control" id="songwriter"> -->
                   <!-- Option list for songwriters (to be populated dynamically) -->
                   <!-- For now, let's assume some sample options -->
-                  <option>Songwriter 1</option>
+                  <!-- <option>Songwriter 1</option>
                   <option>Songwriter 2</option>
                   <option>Songwriter 3</option>
                 </select>
               </div>
               <div class="form-group">
                 <label for="genre">Genre:</label>
-                <select multiple class="form-control" id="genre">
+                <select multiple class="form-control" id="genre"> -->
                   <!-- Option list for genres (to be populated dynamically) -->
                   <!-- For now, let's assume some sample options -->
-                  <option>Pop</option>
+                  <!-- <option>Pop</option>
                   <option>R&B</option>
                   <option>Rock</option>
                   <option>Country</option>
@@ -50,7 +54,7 @@
                 <label for="durasi">Durasi:</label>
                 <input type="text" class="form-control" id="durasi" placeholder="Duration">
               </div>
-              <button type="submit" class="btn btn-primary-2">Submit</button>
+              <button type="submit" class="btn btn-primary-2">Submit</button> -->
             </form>
           </div>
         
@@ -59,4 +63,135 @@
           <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
           <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
     </body>
+    <script>
+      function getCookie(name) {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.indexOf(name + '=') == 0) {
+                return cookie.substring(name.length + 1, cookie.length);
+            }
+        }
+        return '';
+      }
+
+      
+
+      var cookieValueRole = getCookie('role');
+      var list_role = cookieValueRole.replaceAll('"','').split(" ");
+
+      pageContent = `{% csrf_token %}
+              <div class="form-group">
+                <label for="album">Album:</label>
+                <input type="text" class="form-control" id="album" name="album" value="{{ nama_album }}" readonly>
+              </div>
+              <div class="form-group">
+                <label for="judul">Judul:</label>
+                <input type="text" class="form-control" id="judul" name="judul" placeholder="Judul Lagu">
+              </div>`
+
+      if (list_role.indexOf('Artist') !== -1) {
+        pageContent += `
+              <div class="form-group">
+                <label for="options-ar">Artist:</label>
+                <input type="text" class="form-control" id="options-ar" name="options-ar"value="{{ nama_pengguna }}" readonly>
+              </div>
+              <div class="form-group">
+                <label for="options-sw">Songwriter:</label>
+                <select multiple name="options-sw" id="options-sw">
+                  {% for songwriter in songwriters %}
+                    {% if songwriter.0 == nama_pengguna %}
+                      <option value="{{ songwriter.0 }}" selected disable>{{ songwriter.0 }}</option>
+                    {% else %}
+                      <option value="{{ songwriter.0 }}">{{ songwriter.0 }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>`
+
+      } else if (list_role.indexOf('Songwriter') !== -1){
+        pageContent += `
+              <div class="form-group">
+                <label for="options-ar">Artist:</label>
+                <select name="options-ar" id='options-ar'>
+                  {% for artist in artists %}
+                    <option value="{{ artist.0 }}">{{ artist.0 }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="options-sw">Songwriter:</label>
+                <select multiple name="options-sw" id="options-sw">
+                  {% for songwriter in songwriters %}
+                    {% if songwriter.0 == nama_pengguna %}
+                      <option value="{{ songwriter.0 }}" selected disable>{{ songwriter.0 }}</option>
+                    {% else %}
+                      <option value="{{ songwriter.0 }}">{{ songwriter.0 }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>`
+
+      } else {
+        pageContent += `
+              <div class="form-group">
+                <label for="artist">Artist:</label>
+                <input type="text" class="form-control" id="artist" value="{{ nama_pengguna }}">
+              </div>
+              <div class="form-group">
+                <label for="autocomplete">Songwriter:</label>
+                <input type="text" class="form-control" id="autocomplete" name="autocomplete">
+              </div>`
+      }
+
+      pageContent += `div class="form-group">
+                <label for="genre">Genre:</label>
+                <select multiple class="form-control" id="genre" name="genre">
+                  <option>Pop</option>
+                  <option>R&B</option>
+                  <option>Rock</option>
+                  <option>Country</option>
+                  <option>Hip Hop</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="durasi">Durasi:</label>
+                <input type="text" class="form-control" id="durasi" placeholder="Duration" name="durasi">
+              </div>
+              <button type="submit" class="btn btn-primary-2">Submit</button>`
+      
+      document.getElementById('form-lagu').innerHTML = pageContent;
+      
+      document.addEventListener('DOMContentLoaded', function() {
+            var select = document.getElementById('options-sw');
+            var defaultOptionValue = getCookie('nama');
+
+            select.addEventListener('mousedown', function(event) {
+                var options = select.options;
+
+                // Jika tombol Ctrl atau Command tidak ditekan, cegah perubahan
+                if (!event.ctrlKey && !event.metaKey) {
+                    event.preventDefault();
+                    // Pastikan opsi default tetap terpilih
+                    for (var i = 0; i < options.length; i++) {
+                        if (options[i].value === defaultOptionValue) {
+                            options[i].selected = true;
+                            options[i].style.backgroundColor = "#e9ecef"; // Optional: Highlight the default option
+                        }
+                    }
+                }
+            });
+
+            // Pastikan opsi default tetap terpilih saat pengiriman formulir
+            select.addEventListener('change', function() {
+                var options = select.options;
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].value === defaultOptionValue) {
+                        options[i].selected = true;
+                    }
+                }
+            });
+        });
+
+    </script>
 {% endblock content %}
