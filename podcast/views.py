@@ -147,8 +147,15 @@ def manage_podcasts(request):
                 'total_durasi': f"{total_hours} jam {total_minutes} menit" if total_hours > 0 else f"{total_minutes} menit",
             })
 
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT DISTINCT genre FROM genre")
+            genres = cursor.fetchall()
+
+        genre_list = [genre[0] for genre in genres]
+
         context = {
-            'podcasts': podcast_data
+            'podcasts': podcast_data,
+            'genres': genre_list
         }
 
         return render(request, 'createPodcast.html', context)

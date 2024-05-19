@@ -1,12 +1,14 @@
+{% extends 'base.html' %}
+{% block meta %}
+{{ block.super }}
+{% endblock meta %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <title>Register</title>
-    <link
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
     <style>
       body {
         background-color: #1e1e1e;
@@ -32,22 +34,21 @@
         background-color: #1e1e1e;
         border-color: #8a5cf5;
       }
+      .content-container {
+        margin-top: 8rem;
+        text-align: center;
+      }
+      .btn-container {
+        margin-top: 2rem;
+      }
     </style>
   </head>
   <body>
-    <div class="container mt-5 text-center">
+    <div class="container content-container">
       <h2>Choose Your Registration Type</h2>
-      <div class="mt-4">
-        <a
-          href="{% url 'authentication:show_register_pengguna' %}"
-          class="btn btn-primary btn-lg mx-2"
-          >Register Pengguna</a
-        >
-        <a
-          href="{% url 'authentication:show_register_label' %}"
-          class="btn btn-secondary btn-lg mx-2"
-          >Register Label</a
-        >
+      <div class="btn-container">
+        <a href="{% url 'authentication:show_register_pengguna' %}" class="btn btn-primary btn-lg mx-2">Register Pengguna</a>
+        <a href="{% url 'authentication:show_register_label' %}" class="btn btn-secondary btn-lg mx-2">Register Label</a>
       </div>
     </div>
 
@@ -56,3 +57,4 @@
     <script src="https://stackpath.bootstrap.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </body>
 </html>
+{% endblock content %}

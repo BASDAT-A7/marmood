@@ -1,3 +1,8 @@
+{% extends 'base.html' %}
+{% block meta %}
+{{ block.super }}
+{% endblock meta %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +13,7 @@
         body {
             background-color: #1E1E1E;
             color: #DADADA;
+            padding-top: 120px; /* Add padding to avoid overlap with navbar */
         }
         .card {
             background-color: #262626;
@@ -15,6 +21,9 @@
         }
         .card-title {
             color: #8A5CF5;
+        }
+        .card-text {
+            color: #DADADA; /* Ensure text color is visible */
         }
         .table {
             color: #DADADA;
@@ -51,7 +60,7 @@
         <div class="card mb-4">
             <div class="card-body">
                 <h2 class="card-title text-center">CHART DETAIL</h2>
-                <p class="text-center"><strong>Tipe:</strong> {{ chart_type }}</p>
+                <p class="card-text text-center"><strong>Tipe:</strong> {{ chart_type }}</p>
                 <div class="d-flex justify-content-center">
                     <a href="{% url 'podcast:show_chart_list' %}" class="btn btn-primary mt-2">Kembali</a>
                 </div>
@@ -96,3 +105,4 @@
     <script src="https://stackpath.bootstrap.com/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+{% endblock content %}

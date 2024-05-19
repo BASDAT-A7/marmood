@@ -1,3 +1,8 @@
+{% extends 'base.html' %}
+{% block meta %}
+{{ block.super }}
+{% endblock meta %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +13,7 @@
         body {
             background-color: #1E1E1E;
             color: #DADADA;
+            padding-top: 120px; /* Add padding to avoid overlap with navbar */
         }
         .card {
             background-color: #262626;
@@ -15,6 +21,12 @@
         }
         .card-title {
             color: #8A5CF5;
+        }
+        .card-text {
+            color: #DADADA; /* Ensure text color is visible */
+        }
+        .genre-list {
+            color: #DADADA; /* Ensure genre text color is visible */
         }
         .table {
             color: #DADADA;
@@ -45,7 +57,7 @@
                 <h2 class="card-title text-center">PODCAST DETAIL</h2>
                 <p class="card-text"><strong>Judul:</strong> {{ podcast.judul }}</p>
                 <p class="card-text"><strong>Genre(s):</strong></p>
-                <ul class="list-unstyled">
+                <ul class="list-unstyled genre-list">
                     {% for genre in podcast.genres %}
                     <li>{{ genre }}</li>
                     {% endfor %}
@@ -92,3 +104,4 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+{% endblock content %}

@@ -1,3 +1,9 @@
+{% extends 'base.html' %}
+{% block meta %}
+{{ block.super }}
+{% endblock meta %}
+{% block content %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -45,6 +51,9 @@
         background-color: #7e53df;
         border-color: #7e53df;
       }
+      .form-group label {
+        color: #dadada;
+      }
     </style>
   </head>
   <body>
@@ -52,24 +61,26 @@
       <div class="card-body">
           <h3 class="card-title text-center">FORM REGISTRASI - Label</h3>
           <form method="post">
-              {% csrf_token %}
-              <div class="form-group">
-                  <label>Email</label>
-                  <input type="email" class="form-control" name="email" />
-              </div>
-              <div class="form-group">
-                  <label>Password</label>
-                  <input type="password" class="form-control" name="password" />
-              </div>
-              <div class="form-group">
-                  <label>Nama</label>
-                  <input type="text" class="form-control" name="nama" />
-              </div>
-              <div class="form-group">
-                  <label>Kontak</label>
-                  <input type="text" class="form-control" name="kontak" />
-              </div>
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" class="form-control" name="email" required/>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="form-control" name="password" required/>
+            </div>
+            <div class="form-group">
+                <label>Nama</label>
+                <input type="text" class="form-control" name="nama" required/>
+            </div>
+            <div class="form-group">
+                <label>Kontak</label>
+                <input type="text" class="form-control" name="kontak" required/>
+            </div>
+            <div class="text-center">
               <button type="submit" class="btn btn-primary">Register</button>
+            </div>          
           </form>
       </div>
   </div>
@@ -79,3 +90,4 @@
     <script src="https://stackpath.bootstrap.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </body>
 </html>
+{% endblock content %}

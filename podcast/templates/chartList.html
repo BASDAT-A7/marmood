@@ -1,3 +1,5 @@
+{% extends 'base.html' %} {% block meta %} {{ block.super }} {% endblock meta %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +10,7 @@
         body {
             background-color: #1E1E1E;
             color: #DADADA;
+            padding-top: 120px; /* Add padding to avoid overlap with navbar */
         }
         .card {
             background-color: #262626;
@@ -67,3 +70,4 @@
     <script src="https://stackpath.bootstrap.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+{% endblock content %}
