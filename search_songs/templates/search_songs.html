@@ -61,7 +61,9 @@
         <td>{{ song.judul }}</td>
         <td>{{ song.oleh }}</td>
         <td>
-          <button class="detail-button">Lihat</button>
+          <a href="{% url 'playlist:play-song' song_id=song.id_konten %}">
+            <button class="detail-button">Lihat</button>
+          </a>
           {% if 'Premium' in list_role and song.type == 'SONG' %}
           <a href="{% url 'downloaded:download_song' id_song=song.id_konten %}">
             <button class="download-button">Download</button>
