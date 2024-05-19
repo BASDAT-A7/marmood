@@ -56,7 +56,11 @@
             <div class="mt-4">
               <p style="color: #8a5cf5" class="text-center">
                 Don't have an account?
-                <a class="btn btn-secondary">Register</a>
+                <a
+                  href="{% url 'authentication:show_register' %}"
+                  class="btn btn-secondary"
+                  >Register</a
+                >
               </p>
             </div>
           </form>

@@ -59,7 +59,7 @@
     }
 
     if (list_role.indexOf("Podcaster") !== -1) {
-      navbarContent += `<a href="" style="text-decoration: none;" class="btn btn-primary" > Kelola Podcast </a>`;
+      navbarContent += `<a href="{% url 'podcast:manage_podcasts' %}" style="text-decoration: none;" class="btn btn-primary" > Kelola Podcast </a>`;
     }
 
     if (
