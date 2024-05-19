@@ -90,9 +90,6 @@ def login_view(request):
             response.set_cookie('nama', user[1], max_age=3600)  # Simpan informasi autentikasi di cookie
             response.set_cookie('role', role_pengguna, max_age=3600)  # Simpan informasi autentikasi di cookie
             response.set_cookie('logged_in', "Yes", max_age=3600)  # Simpan informasi autentikasi di cookie
-            print("ini response: ", response)
-            print("ini role: ", role)
-            print("ini role pengguna: ", role_pengguna)
             return response
         else:
             return render(request, 'login.html')
