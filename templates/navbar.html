@@ -25,8 +25,8 @@
   var navbarContent = ``;
 
   if (logged_in.length === 0) {
-    navbarContent += `<a href="#" style="text-decoration: none; " class="btn btn-primary" > Sign In </a>
-            <a href="#" style="text-decoration: none; " class="btn btn-primary"> Sign Up </a>`;
+    navbarContent += `<a href="{% url 'authentication:login_view' %}" style="text-decoration: none; " class="btn btn-primary" > Sign In </a>
+            <a href="{% url 'authentication:show_register' %}" style="text-decoration: none; " class="btn btn-primary"> Sign Up </a>`;
   } else {
     var cookieValue = getCookie("role");
     console.log(cookieValue);
@@ -44,7 +44,7 @@
       list_role.indexOf("Podcaster") !== -1 ||
       list_role.length === 1
     ) {
-      navbarContent += `<a href="" style="text-decoration: none;" class="btn btn-primary">Chart</a>
+      navbarContent += `<a href="{% url 'podcast:show_chart_list' %}" style="text-decoration: none;" class="btn btn-primary">Chart</a>
                 <form action="{% url 'search_songs:search_songs' %}" method="post" style="display: inline;">
                     {% csrf_token %}
                     <input type="text" name="q" placeholder="Cari..." class="search-input">

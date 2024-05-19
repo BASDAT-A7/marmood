@@ -87,7 +87,7 @@
                             <td>{{ song.artist }}</td>
                             <td>{{ song.release_date }}</td>
                             <td>{{ song.total_plays }}</td>
-                            <td><a href="#" class="btn btn-info">Lihat</a></td>
+                            <td><a href="{% url 'playlist:play-song' song_id=song.id_konten %}" class="btn btn-info">Lihat</a></td>
                         </tr>
                         {% empty %}
                         <tr>
