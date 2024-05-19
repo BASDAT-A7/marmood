@@ -80,7 +80,10 @@
                     <td>{{ lagu.4 }}</td>
                     <td>
                         <div class="column-table">
-                            <button class="btn-column"> Lihat Detail </button>
+                            <form method="POST" action="{% url 'playlist:play-song' lagu.0 %}">
+                                {% csrf_token %}
+                                <button class="btn-column"> Lihat Detail </button>
+                            </form>
                             <form method="POST" action="{% url 'kelola_album_song:delete-lagu' %}">
                                 {% csrf_token %}
                                 <button class="btn-column" name="deleted-lagu" value="{{ lagu.0 }}"> Hapus </button>
