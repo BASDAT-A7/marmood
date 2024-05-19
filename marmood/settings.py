@@ -108,7 +108,7 @@ DATABASES = {
     'ENGINE': 'django.db.backends.postgresql',
     'NAME': 'marmut',
     'USER': 'marmut_owner',
-    'PASSWORD': 'mYJo71VMELrZ' ,
+    'PASSWORD': 'mYJo71VMELrZ',
     'HOST': 'ep-long-bird-a5e28bqy.us-east-2.aws.neon.tech',
     'PORT': "",
     'OPTIONS': {
