@@ -3,15 +3,16 @@ from django.contrib.auth.decorators import login_required
 from functions.general import query_result
 from django.db import connection
 
-@login_required(login_url='/login')
 def show_dashboard(request):
     user_email = request.COOKIES.get('email')
-    roles = request.COOKIES.get('role')
-    
-    if roles:
-        roles_list = roles.split(',')
+    roles = request.COOKIES['role']
+    roles_list = roles.split(" ")
     
     context = {}
+    
+    songs = []
+    podcasts = []
+    albums = []
     
     if 'Label' in roles_list:
         user_info = query_result(f"""
@@ -25,6 +26,8 @@ def show_dashboard(request):
                             FROM ALBUM AS a, LABEL AS l
                             WHERE l.id = a.id_label AND l.email = '{user_email}';
                               """)
+        
+        albums.extend(albums)
         
         context.update({
             'user_info': user_info,
@@ -42,18 +45,16 @@ def show_dashboard(request):
             status_langganan = "Nonpremium"
             
         user_info = query_result(f"""
-                            SELECT a.*
+                            SELECT a.email
                             FROM AKUN AS a
                             WHERE a.email = '{user_email}';
                                  """)
         
         playlists = query_result(f"""
                             SELECT up.*
-                            FROM USERPLAYLIST AS up
+                            FROM USER_PLAYLIST AS up
                             WHERE up.email_pembuat = '{user_email}';
                                  """)
-        
-        songs = []
         
         if 'Artist' in roles_list:
             artist_songs = query_result(f"""
@@ -69,7 +70,7 @@ def show_dashboard(request):
         if 'Songwriter' in roles_list:
             songwriter_songs = query_result(f"""
                                     SELECT k.judul, s.*
-                                    FROM SONGWRITERWRITESONG AS sws
+                                    FROM SONGWRITER_WRITE_SONG AS sws
                                     JOIN SONGWRITER AS sw ON sws.id_songwriter = sw.id
                                     JOIN SONG AS s ON sws.id_song = s.id_konten
                                     JOIN KONTEN AS k ON k.id = s.id_konten
@@ -89,6 +90,8 @@ def show_dashboard(request):
                                 WHERE pc.email = '{user_email}';
                                     """)
             
+            podcasts.extend(podcasts)
+            
         context.update({
             'user_info': user_info,
             'playlists': playlists,
@@ -99,6 +102,7 @@ def show_dashboard(request):
             'empty_songs': len(songs) == 0,
             'empty_podcasts': len(podcasts) == 0,
             'empty_albums': len(albums) == 0,
+            'roles_list': roles_list,
         })
         
     return render(request, 'dashboard.html', context)

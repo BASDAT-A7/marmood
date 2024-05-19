@@ -34,9 +34,9 @@
                                 <td>{{ playlist.jumlah_lagu }}</td>
                                 <td>{{ playlist.total_durasi|format_duration }}</td>
                                 <td>
-                                    <a href="{% url 'playlist-details' playlist_id = playlist.id_user_playlist %}" class="btn btn-info" style="background-color: #8A5CF5; color: #DADADA;">Details</a>
+                                    <a href="{% url 'playlist:playlist-details' playlist.id_user_playlist %}" class="btn btn-info" style="background-color: #8A5CF5; color: #DADADA;">Details</a>
                                     <button class="btn btn-warning edit-btn" data-toggle="modal" data-target="#editPlaylistModal{{ playlist.id_user_playlist }}" style="background-color: #8A5CF5; color: #DADADA;">Edit</button>
-                                    <form method="post" action="{% url 'delete-playlist' playlist_id = playlist.id_user_playlist %}">
+                                    <form method="post" action="{% url 'playlist:delete-playlist' playlist.id_user_playlist %}">
                                         {% csrf_token %}
                                         <button type="submit" class="btn btn-danger" style="background-color: #8A5CF5; color: #DADADA;">Delete</button>
                                     </form>
@@ -63,7 +63,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <form method="post" action="{% url 'add-playlist' %}">
+                    <form method="post" action="{% url 'playlist:add-playlist' %}">
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="playlistTitle">Judul Playlist</label>
@@ -90,7 +90,7 @@
                     <h5 class="modal-title" id="editPlaylistModalLabel">Edit Playlist</h5>
                 </div>
                 <div class="modal-body">
-                    <form method="post" action="{% url 'edit-playlist' playlist_id = playlist.id_user_playlist %}">
+                    <form method="post" action="{% url 'playlist:edit-playlist' playlist.id_user_playlist %}">
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="editPlaylistTitle">Judul Baru</label>
