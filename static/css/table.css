@@ -64,6 +64,8 @@
 
 .table-div h6 {
   color: #8A5CF5;
+  justify-content: center;
+  text-align: center;
 }
 
 .rwd-table {

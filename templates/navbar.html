@@ -112,15 +112,15 @@
         }
     
         if (list_role.indexOf('Artist') !== -1 || list_role.indexOf('Songwriter') !== -1) {
-            navbarContent += `<a href="" style="text-decoration: none;" class="btn btn-primary" > Kelola Album dan Song </a>`
+            navbarContent += `<a href="{% url 'kelola_album_song:kelola_album_song' %}" style="text-decoration: none;" class="btn btn-primary" > Kelola Album dan Song </a>`
         }
     
         if (list_role.indexOf('Label') !== -1) {
-            navbarContent += `<a href="" style="text-decoration: none; " class="btn btn-primary"> Kelola Album </a>`
+            navbarContent += `<a href="{% url 'kelola_album:kelola_album' %}" style="text-decoration: none; " class="btn btn-primary"> Kelola Album dan Songs </a>`
         }
     
         if (list_role.indexOf('Artist') !== -1 || list_role.indexOf('Songwriter') !== -1 || list_role.indexOf('Label') !== -1) {
-            navbarContent += `<a href="" style="text-decoration: none; " class="btn btn-primary"> Cek Royalti </a>`
+            navbarContent += `<a href="{% url 'cek_royalti:cek_royalti' %}" style="text-decoration: none; " class="btn btn-primary"> Cek Royalti </a>`
         }
         
     

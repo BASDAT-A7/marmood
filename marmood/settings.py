@@ -46,10 +46,9 @@ INSTALLED_APPS = [
     'authentication',
     'kelola_album_song',
     'cek_royalti',
-    'kelola_album'
-    'authentication',
+    'kelola_album',
     'paket',
-    'downloaded'
+    'downloaded',
     'playlist',
     'dashboard',
 ]
