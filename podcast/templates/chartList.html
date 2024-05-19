@@ -1,3 +1,5 @@
+{% extends 'base.html' %} {% block meta %} {{ block.super }} {% endblock meta %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +10,7 @@
         body {
             background-color: #1E1E1E;
             color: #DADADA;
+            padding-top: 120px; /* Add padding to avoid overlap with navbar */
         }
         .card {
             background-color: #262626;
@@ -41,26 +44,21 @@
         <h2 class="text-center mb-4">CHART LIST</h2>
 
         <div class="row justify-content-center">
+            {% for chart in charts %}
             <div class="col-md-3 mb-4">
                 <div class="card rounded-card">
-                    <img src="/static/images/vinyl.jpg" class="card-img-top square-image" alt="Daily Top 20">
+                    <img src="/static/images/vinyl.jpg" class="card-img-top square-image" alt="{{ chart.name }}">
                     <div class="card-body text-center">
-                        <h5 class="card-title font-weight-bold">Daily Top 20</h5>
-                        <a href="#" class="btn btn-primary mt-2">Lihat Daftar Lagu</a>
+                        <h5 class="card-title font-weight-bold">{{ chart.name }}</h5>
+                        <a href="{% url 'podcast:show_chart_detail' playlist_id=chart.id %}" class="btn btn-primary mt-2">View Details</a>
                     </div>
                 </div>
             </div>
-            
-            <div class="col-md-3 mb-4">
-                <div class="card rounded-card">
-                    <img src="/static/images/vinyl.jpg" class="card-img-top square-image" alt="Weekly Top 10">
-                    <div class="card-body text-center">
-                        <h5 class="card-title font-weight-bold">Weekly Top 10</h5>
-                        <a href="#" class="btn btn-primary mt-2">Lihat Daftar Lagu</a>
-                    </div>
-                </div>
-            </div>
+            {% empty %}
+            <p>No charts available.</p>
+            {% endfor %}
         </div>
+        
 
         <div class="d-flex justify-content-center">
             <a href="#" class="btn btn-primary mt-2">Kembali</a>
@@ -72,3 +70,4 @@
     <script src="https://stackpath.bootstrap.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+{% endblock content %}

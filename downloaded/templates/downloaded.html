@@ -1,77 +1,84 @@
 {% extends 'base.html' %} {% block meta %} {{ block.super }} {% endblock meta %}
 {% block content %}
 <style>
-  .dark-table {
-    background-color: #1e1e1e;
-    color: #8a5cf5;
+  body,
+  html {
+    height: 100%;
+    margin: 0;
+    background-color: #1e1e1e; /* Dark background for the page */
   }
-  .dark-table thead th {
-    background-color: #1e1e1e;
-    color: #8a5cf5;
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
   }
-  .dark-table tbody tr:hover {
-    background-color: #8a5cf5;
+  table {
+    width: 100%;
+    max-width: 600px;
+    background-color: #333; /* Darker table background */
+    color: #ffffff; /* White text color */
+    margin-top: 20px;
+    border-collapse: collapse; /* Ensures that the table borders are collapsed into a single border */
+  }
+  th,
+  td {
+    padding: 15px; /* More padding for table cells */
+    text-align: left; /* Align text to the left */
+    border-bottom: 1px solid #444; /* Subtle border for rows */
+  }
+  th {
+    background-color: #555; /* Dark background for header */
+  }
+  a {
+    color: #8a5cf5; /* Link color */
+    text-decoration: none; /* No underline */
+  }
+  a:hover {
+    text-decoration: underline; /* Underline on hover */
+  }
+  .action-buttons {
+    display: flex;
+    justify-content: center; /* Center action buttons horizontally */
+  }
+  button {
+    margin-right: 10px; /* Space between buttons */
+    background-color: #8a5cf5; /* Button background color */
+    color: white; /* Button text color */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
   }
 </style>
+
 <div class="container py-5">
-  <div class="row">
-    <div class="col-12">
-      <table class="table dark-table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Title</th>
-            <th scope="col">Artist</th>
-            <th scope="col">Album</th>
-            <th scope="col">Added</th>
-            <th scope="col">Duration</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Example Row -->
-          <tr>
-            <th scope="row">1</th>
-            <td>Haru</td>
-            <td>Yorushika</td>
-            <td>Haru</td>
-            <td>1 week ago</td>
-            <td>4:31</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Haru</td>
-            <td>Yorushika</td>
-            <td>Haru</td>
-            <td>1 week ago</td>
-            <td>4:31</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Haru</td>
-            <td>Yorushika</td>
-            <td>Haru</td>
-            <td>1 week ago</td>
-            <td>4:31</td>
-          </tr>
-          <tr>
-            <th scope="row">4</th>
-            <td>Haru</td>
-            <td>Yorushika</td>
-            <td>Haru</td>
-            <td>1 week ago</td>
-            <td>4:31</td>
-          </tr>
-          <tr>
-            <th scope="row">5</th>
-            <td>Haru</td>
-            <td>Yorushika</td>
-            <td>Haru</td>
-            <td>1 week ago</td>
-            <td>4:31</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <h1 style="color: #8a5cf5; text-align: center">Daftar Lagu</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Judul Lagu</th>
+        <th>Oleh</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for song in songs %}
+      <tr>
+        <td>{{ song.judul_lagu }}</td>
+        <td>{{ song.oleh }}</td>
+        <td class="action-buttons">
+          <a><button>Lihat</button></a>
+          <a href="{% url 'downloaded:delete_song' id_song=song.id_lagu %}"
+            ><button>Hapus</button></a
+          >
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="mt-3">
+    <a><button>Kembali</button></a>
   </div>
 </div>
 {% endblock content %}

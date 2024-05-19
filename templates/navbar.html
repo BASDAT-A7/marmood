@@ -1,131 +1,88 @@
 <header>
-    <nav class="navbar fixed-top">
-        <div class="left-content">
-            <a href="">
-                <img src="/static/images/Marmood V2.png" alt="Logo Marmood">
-            </a>
-        </div>
-        <div class="right-content" id="navbar-content">
-            <!-- Ini untuk Guess -->
-            <!-- <a href="#" style="text-decoration: none; " class="btn btn-primary" > Sign In </a>
-            <a href="#" style="text-decoration: none; " class="btn btn-primary"> Sign Up </a> -->
-
-            <!-- Ini untuk Pengguna Biasa-->
-            <!-- <a href="" style="text-decoration: none;" class="btn btn-primary" > Chart </a>
-            <input type="text" name="q" placeholder="Cari..." class="search-input">
-            <button type="submit" class="search-button">Cari</button>
-            <a href="" style="text-decoration: none; " class="btn btn-primary"> Kelola Playlist </a>
-            <a href="" style="text-decoration: none;" class="btn btn-primary" > Langganan Paket </a>
-            <a href="" style="text-decoration: none; " class="btn btn-primary"> Dashboard </a>
-            <a href="" style="text-decoration: none; " class="btn btn-primary"> Logout </a> -->
-            
-            <!-- Ini untuk Artist -->
-            <!-- <a href="" style="text-decoration: none;" class="btn btn-primary" > Chart </a>
-            <input type="text" name="q" placeholder="Cari..." class="search-input">
-            <button type="submit" class="search-button">Cari</button>
-            <a href="" style="text-decoration: none; " class="btn btn-primary"> Kelola Playlist </a>
-            <a href="" style="text-decoration: none;" class="btn btn-primary" > Langganan Paket </a>
-            <a href="" style="text-decoration: none;" class="btn btn-primary" > Kelola Album dan Song </a>
-            <a href="" style="text-decoration: none; " class="btn btn-primary"> Cek Royalti </a>
-            <a href="" style="text-decoration: none; " class="btn btn-primary"> Dashboard </a>
-            <a href="" style="text-decoration: none; " class="btn btn-primary"> Logout </a> -->
-            
-            <!-- Ini untuk Songwriter -->
-            <!-- <a href="" style="text-decoration: none;" class="btn btn-primary" > Chart </a>
-            <input type="text" name="q" placeholder="Cari..." class="search-input">
-            <button type="submit" class="search-button">Cari</button>
-            <a href="" style="text-decoration: none; " class="btn btn-primary"> Kelola Playlist </a>
-            <a href="" style="text-decoration: none;" class="btn btn-primary" > Langganan Paket </a>
-            <a href="" style="text-decoration: none;" class="btn btn-primary" > Kelola Album dan Song </a>
-            <a href="" style="text-decoration: none; " class="btn btn-primary"> Cek Royalti </a>
-            <a href="" style="text-decoration: none; " class="btn btn-primary"> Dashboard </a> -->
-            
-            <!-- Ini untuk Podcaster -->
-            <!-- <a href="" style="text-decoration: none;" class="btn btn-primary" > Chart </a>
-            <input type="text" name="q" placeholder="Cari..." class="search-input">
-            <button type="submit" class="search-button">Cari</button>
-            <a href="" style="text-decoration: none; " class="btn btn-primary"> Kelola Playlist </a>
-            <a href="" style="text-decoration: none;" class="btn btn-primary" > Langganan Paket </a>
-            <a href="" style="text-decoration: none;" class="btn btn-primary" > Kelola Podcast </a>
-            <a href="" style="text-decoration: none; " class="btn btn-primary"> Dashboard </a>
-            <a href="" style="text-decoration: none; " class="btn btn-primary"> Logout </a> -->
-            
-            <!-- Ini untuk Premium -->
-            <!-- <a href="" style="text-decoration: none; " class="btn btn-primary"> Kelola Downloaded Song </a>
-            <a href="" style="text-decoration: none; " class="btn btn-primary"> Dashboard </a>
-            <a href="" style="text-decoration: none; " class="btn btn-primary"> Logout </a> -->
-            
-            <!-- Ini untuk Label -->
-            <!-- <a href="" style="text-decoration: none; " class="btn btn-primary"> Kelola Album </a>
-            <a href="" style="text-decoration: none; " class="btn btn-primary"> Cek Royalti </a>
-            <a href="" style="text-decoration: none; " class="btn btn-primary"> Logout </a> -->
-            
-            
-        </div>
-    </nav>
+  <nav class="navbar fixed-top">
+    <div class="left-content">
+      <a href="">
+        <img src="/static/images/Marmood V2.png" alt="Logo Marmood" />
+      </a>
+    </div>
+    <div class="right-content" id="navbar-content"></div>
+  </nav>
 </header>
 <script>
-   function getCookie(name) {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = cookies[i].trim();
-            if (cookie.indexOf(name + '=') == 0) {
-                return cookie.substring(name.length + 1, cookie.length);
-            }
-        }
-        return '';
+  function getCookie(name) {
+    var cookies = document.cookie.split(";");
+    for (var i = 0; i < cookies.length; i++) {
+      var cookie = cookies[i].trim();
+      if (cookie.indexOf(name + "=") == 0) {
+        return cookie.substring(name.length + 1, cookie.length);
+      }
     }
-    var logged_in = getCookie('logged_in');
-    console.log("I: " + logged_in + logged_in.length);
+    return "";
+  }
+  var logged_in = getCookie("logged_in");
+  console.log("I: " + logged_in + logged_in.length);
 
-    var navbarContent = ``;
+  var navbarContent = ``;
 
-    if (logged_in.length === 0) {
-        navbarContent += `<a href="#" style="text-decoration: none; " class="btn btn-primary" > Sign In </a>
+  if (logged_in.length === 0) {
+    navbarContent += `<a href="#" style="text-decoration: none; " class="btn btn-primary" > Sign In </a>
             <a href="#" style="text-decoration: none; " class="btn btn-primary"> Sign Up </a>`;
-    
-    } else {
-        var cookieValue = getCookie('role');
-        console.log(cookieValue)
-    
-        var list_role = cookieValue.replaceAll('"','').split(" ");
-        console.log(list_role);
-    
-        console.log(list_role.length === 1);
-    
-        navbarContent += `<a href="" style="text-decoration: none; " class="btn btn-primary"> Dashboard </a>`;
-    
-        if (list_role.indexOf('Artist') !== -1 || list_role.indexOf('Songwriter') !== -1 || list_role.indexOf('Podcaster') !== -1 || list_role.length === 1) {
-            navbarContent += `<a href="" style="text-decoration: none;" class="btn btn-primary" > Chart </a>
-                <input type="text" name="q" placeholder="Cari..." class="search-input">
-                <button type="submit" class="search-button">Cari</button>
-                <a href="" style="text-decoration: none; " class="btn btn-primary"> Kelola Playlist </a>
-                <a href="" style="text-decoration: none;" class="btn btn-primary" > Langganan Paket </a>`
-        }
-    
-        if (list_role.indexOf('Premium') !== -1) {
-            navbarContent += `<a href="" style="text-decoration: none; " class="btn btn-primary"> Kelola Downloaded Song </a>`
-        }
-        
-        if (list_role.indexOf('Podcaster') !== -1) {
-            navbarContent += `<a href="" style="text-decoration: none;" class="btn btn-primary" > Kelola Podcast </a>`
-        }
-    
-        if (list_role.indexOf('Artist') !== -1 || list_role.indexOf('Songwriter') !== -1) {
-            navbarContent += `<a href="{% url 'kelola_album_song:kelola_album_song' %}" style="text-decoration: none;" class="btn btn-primary" > Kelola Album dan Song </a>`
-        }
-    
-        if (list_role.indexOf('Label') !== -1) {
-            navbarContent += `<a href="{% url 'kelola_album:kelola_album' %}" style="text-decoration: none; " class="btn btn-primary"> Kelola Album dan Songs </a>`
-        }
-    
-        if (list_role.indexOf('Artist') !== -1 || list_role.indexOf('Songwriter') !== -1 || list_role.indexOf('Label') !== -1) {
-            navbarContent += `<a href="{% url 'cek_royalti:cek_royalti' %}" style="text-decoration: none; " class="btn btn-primary"> Cek Royalti </a>`
-        }
-        
-    
-        navbarContent += `<a href="{% url 'authentication:logout' %}" style="text-decoration: none; " class="btn btn-primary"> Logout </a>`
+  } else {
+    var cookieValue = getCookie("role");
+    console.log(cookieValue);
+
+    var list_role = cookieValue.replaceAll('"', "").split(" ");
+    console.log(list_role);
+
+    console.log(list_role.length === 1);
+
+    navbarContent += `<a href="" style="text-decoration: none; " class="btn btn-primary"> Dashboard </a>`;
+
+    if (
+      list_role.indexOf("Artist") !== -1 ||
+      list_role.indexOf("Songwriter") !== -1 ||
+      list_role.indexOf("Podcaster") !== -1 ||
+      list_role.length === 1
+    ) {
+      navbarContent += `<a href="" style="text-decoration: none;" class="btn btn-primary">Chart</a>
+                <form action="{% url 'search_songs:search_songs' %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <input type="text" name="q" placeholder="Cari..." class="search-input">
+                    <button type="submit" class="search-button">Cari</button>
+                </form>
+                <a href="" style="text-decoration: none;" class="btn btn-primary">Kelola Playlist</a>
+                <a href="{% url 'paket:show_paket' %}" style="text-decoration: none;" class="btn btn-primary">Langganan Paket</a>`;
     }
 
-    document.getElementById('navbar-content').innerHTML = navbarContent;
+    if (list_role.indexOf("Premium") !== -1) {
+      navbarContent += `<a href="{% url 'downloaded:show_downloaded' %}" style="text-decoration: none; " class="btn btn-primary"> Kelola Downloaded Song </a>`;
+    }
+
+    if (list_role.indexOf("Podcaster") !== -1) {
+      navbarContent += `<a href="{% url 'podcast:manage_podcasts' %}" style="text-decoration: none;" class="btn btn-primary" > Kelola Podcast </a>`;
+    }
+
+    if (
+      list_role.indexOf("Artist") !== -1 ||
+      list_role.indexOf("Songwriter") !== -1
+    ) {
+      navbarContent += `<a href="{% url 'kelola_album_song:kelola_album_song' %}" style="text-decoration: none;" class="btn btn-primary" > Kelola Album dan Song </a>`;
+    }
+
+    if (list_role.indexOf("Label") !== -1) {
+      navbarContent += `<a href="{% url 'kelola_album:kelola_album' %}" style="text-decoration: none; " class="btn btn-primary"> Kelola Album dan Songs </a>`;
+    }
+
+    if (
+      list_role.indexOf("Artist") !== -1 ||
+      list_role.indexOf("Songwriter") !== -1 ||
+      list_role.indexOf("Label") !== -1
+    ) {
+      navbarContent += `<a href="{% url 'cek_royalti:cek_royalti' %}" style="text-decoration: none; " class="btn btn-primary"> Cek Royalti </a>`;
+    }
+
+    navbarContent += `<a href="{% url 'authentication:logout' %}" style="text-decoration: none; " class="btn btn-primary"> Logout </a>`;
+  }
+
+  document.getElementById("navbar-content").innerHTML = navbarContent;
 </script>

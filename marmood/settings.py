@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'downloaded',
     'playlist',
     'dashboard',
+    'search_songs',
 ]
 
 MIDDLEWARE = [
@@ -87,6 +88,21 @@ WSGI_APPLICATION = 'marmood.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#   'default': {
+#     'ENGINE': 'django.db.backends.postgresql',
+#     'NAME': getenv('PGDATABASE'),
+#     'USER': getenv('PGUSER'),
+#     'PASSWORD': getenv('PGPASSWORD'),
+#     'HOST': getenv('PGHOST'),
+#     'PORT': getenv('PGPORT', 5432),
+#     'OPTIONS': {
+#       'sslmode': 'require',
+#     },
+#     'DISABLE_SERVER_SIDE_CURSORS': True,
+#   }
+# }
+
 DATABASES = {
   'default': {
     'ENGINE': 'django.db.backends.postgresql',
@@ -101,7 +117,6 @@ DATABASES = {
     'DISABLE_SERVER_SIDE_CURSORS': True,
   }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
