@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% load custom_filters %}
+
 <style>
     body {
         background-color: #1E1E1E;
@@ -24,7 +26,7 @@
                 <li class="list-group-item"><b>Judul:</b> {{ playlist.judul }}</li>
                 <li class="list-group-item"><b>Pembuat:</b> {{ playlist.pembuat }}</li>
                 <li class="list-group-item"><b>Jumlah Lagu:</b> {{ playlist.jumlah_lagu }}</li>
-                <li class="list-group-item"><b>Total Durasi:</b> {{ playlist.total_durasi }}</li>
+                <li class="list-group-item"><b>Total Durasi:</b> {{ playlist.total_durasi|format_duration }}</li>
                 <li class="list-group-item"><b>Tanggal Dibuat:</b> {{ playlist.tanggal_dibuat }}</li>
                 <li class="list-group-item"><b>Deskripsi:</b> {{ playlist.deskripsi }}</li>
             </ul>
@@ -53,7 +55,7 @@
                     <tr>
                         <td>{{ song.song_title }}</td>
                         <td>{{ song.artist_name }}</td>
-                        <td>{{ song.durasi }}</td>
+                        <td>{{ song.durasi|format_duration }}</td>
                         <td>
                             <a href="{% url 'play-song' song_id = song.id %}" class="btn btn-info">Lihat</a>
                             <button class="btn btn-warning">Play</button>

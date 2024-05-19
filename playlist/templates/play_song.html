@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% load custom_filters %}
+
 <style>
     body {
         background-color: #1E1E1E;
@@ -28,7 +30,7 @@
                 <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Genre(s): {{ song.genre }}</li>
                 <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Artist: {{ artist.nama_artis }}</li>
                 <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Songwriter(s): {{ songwriter.nama_songwriter }}</li>
-                <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Durasi: {{ song.durasi }}</li>
+                <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Durasi: {{ song.durasi|format_duration }}</li>
                 <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Tanggal Rilis: {{ song.tanggal_rilis }}</li>
                 <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Tahun: {{ song.tahun }}</li>
                 <li class="list-group-item" style="background-color: #262626; color: #DADADA;">Total Downloads: {{ song.total_unduhan }}</li>
