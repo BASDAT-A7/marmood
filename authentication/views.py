@@ -212,13 +212,13 @@ def login_view(request):
 
         # Lakukan proses autentikasi di sini
         with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM akun WHERE email = %s AND password = %s", [email, password])
+            cursor.execute("SELECT email, nama FROM akun WHERE email = %s AND password = %s", [email, password])
             user = cursor.fetchone()
             if user is None:
                 cursor.execute("SELECT email, nama FROM label WHERE email = %s AND password = %s", [email, password])
                 user = cursor.fetchone()
                 
-            print("ini user: ", user[0])
+            # print("user", user[0])
         
         if user:
             # Pengguna ditemukan, autentikasi berhasil
@@ -273,6 +273,7 @@ def login_view(request):
             return response
         else:
             return render(request, 'login.html')
+        
     response = HttpResponse(render(request, 'login.html'))
     response.delete_cookie('email')
     response.delete_cookie('logged_in')

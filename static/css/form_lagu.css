@@ -17,6 +17,7 @@
   .form-group label {
     font-weight: bold;
     text-align: center !important;
+    color: #8A5CF5 !important;
   }
   .form-control {
     background-color: #444;
@@ -48,4 +49,8 @@
 
   form {
     text-align: center;
+  }
+
+  h5 {
+    color: #8A5CF5 !important;
   }

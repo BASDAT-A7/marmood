@@ -12,51 +12,37 @@
         <div class="body-con-cr" style="text-align: center;">
             <div class="table-div">
                 <h1>List Album</h1>
+                <h6> Owner: {{ nama }} </h6>
                 <table class="rwd-table">
                 <tr>
                     <th>Judul</th>
-                    <th>Label</th>
                     <th>Jumlah Lagu</th>
                     <th>Total Durasi</th>
                     <th>Action</th>
                 </tr>
+                {% for album in data_album %}
                 <tr>
-                    <td>Album 1</td>
-                    <td>Label 1</td>
-                    <td>86</td>
-                    <td>240</td>
+                    <td>{{ album.1 }}</td>
+                    <td>{{ album.2 }}</td>
+                    <td>{{ album.3 }}</td>
                     <td>
-                        <button class="btn-column"> Lihat Daftar Lagu </button>
-                        <button class="btn-column"> Hapus </button>
-                    </td>
-        
-                </tr>
-                <tr>
-                    <td>Album 2</td>
-                    <td>Label 2</td>
-                    <td>70</td>
-                    <td>200</td>
-                    <td>
-                        <button class="btn-column"> Lihat Daftar Lagu </button>
-                        <button class="btn-column"> Hapus </button>
+                        <form method="post" action="{% url 'kelola_album:kelola_album' %}">
+                            {% csrf_token %}
+                            <button class="btn-column" name="list-lagu" value="{{ album.0 }}"> Lihat Daftar Lagu </button>                        </form>
+                        <form method="post" action="{% url 'kelola_album:delete_album' %}">
+                            {% csrf_token %}
+                            <button class="btn-column" name="deleted-album" value="{{ album.0 }}"> Hapus </button>
+                        </form>
                     </td>
                 </tr>
-                <tr>
-                    <td>Album 3</td>
-                    <td>Label 3</td>
-                    <td>100</td>
-                    <td>280</td>
-                    <td>
-                        <button class="btn-column"> Lihat Daftar Lagu </button>
-                        <button class="btn-column"> Hapus </button>
-                    </td>
-                </tr>
+                {% endfor %}
                 </table>
             </div>
         
             <!-- Tabel Lagu -->
+            {% if nama_album %}
             <div class="table-div">
-                <h1>List Lagu Pada Album 1</h1>
+                <h1>List Lagu Pada {{ nama_album.0 }}</h1>
                 <table class="rwd-table">
                 <tr>
                     <th>Judul</th>
@@ -65,39 +51,24 @@
                     <th>Total Download</th>
                     <th>Action</th>
                 </tr>
+                {% for lagu in list_lagu %}
                 <tr>
-                    <td>Lagu 1</td>
-                    <td>3</td>
-                    <td>86</td>
-                    <td>27</td>
+                    <td>{{ lagu.1 }}</td>
+                    <td>{{ lagu.2 }}</td>
+                    <td>{{ lagu.3 }}</td>
+                    <td>{{ lagu.4 }}</td>
                     <td>
                         <button class="btn-column"> Lihat Detail </button>
-                        <button class="btn-column"> Hapus </button>
-                    </td>
-        
-                </tr>
-                <tr>
-                    <td>Lagu 2</td>
-                    <td>4</td>
-                    <td>70</td>
-                    <td>15</td>
-                    <td>
-                        <button class="btn-column"> Lihat Detail </button>
-                        <button class="btn-column"> Hapus </button>
+                        <form method="post" action="{% url 'kelola_album:delete_lagu' %}">
+                            {% csrf_token %}
+                            <button class="btn-column" name="deleted-lagu" value="{{ lagu.0 }}"> Hapus </button>
+                        </form>
                     </td>
                 </tr>
-                <tr>
-                    <td>Lagu 3</td>
-                    <td>4.5</td>
-                    <td>100</td>
-                    <td>50</td>
-                    <td>
-                        <button class="btn-column"> Lihat Detail </button>
-                        <button class="btn-column"> Hapus </button>
-                    </td>
-                </tr>
+                {% endfor %}
                 </table>
             </div>
+            {% endif %}
         </div>
     </body>
 {% endblock content %}
