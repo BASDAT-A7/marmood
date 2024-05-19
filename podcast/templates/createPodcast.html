@@ -63,14 +63,41 @@
             background-color: #dc3545;
             border-color: #dc3545;
         }
+        /* Modal Customization */
+        .modal-header {
+            background-color: #8A5CF5;
+            color: white;
+        }
+        .modal-content {
+            background-color: #262626;
+            color: #DADADA;
+        }
+        .modal-footer .btn-secondary {
+            background-color: #8A5CF5;
+            border-color: #8A5CF5;
+        }
+        .modal-footer .btn-secondary:hover {
+            background-color: #7E53DF;
+            border-color: #7E53DF;
+        }
     </style>
 </head>
 <body>
     <div class="container mt-4">
+        {% if messages %}
+        <div class="messages fixed-top m-3">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                <strong>Notice:</strong> {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
         <div class="card mb-4">
             <div class="card-body">
                 <h2 class="card-title text-center">CREATE PODCAST</h2>
-                <form method="POST" action="{% url 'podcast:manage_podcasts' %}">
+                <form id="createPodcastForm" method="POST" action="{% url 'podcast:manage_podcasts' %}">
                     {% csrf_token %}
                     <div class="form-group row">
                         <label for="title" class="col-form-label col-sm-2">Judul:</label>
@@ -87,7 +114,11 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-center">
+                        {% if is_podcaster %}
                         <button type="submit" class="btn btn-primary mt-2">Submit</button>
+                        {% else %}
+                        <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#createModal">Submit</button>
+                        {% endif %}
                     </div>
                 </form>
             </div>
@@ -114,8 +145,13 @@
                             <td>
                                 <div class="d-flex justify-content-around">
                                     <a href="{% url 'podcast:show_detail_podcast' podcast.id %}" class="btn btn-info btn-sm"><i class="fas fa-list"></i></a>
+                                    {% if is_podcaster %}
                                     <a href="{% url 'podcast:manage_episodes' podcast.id %}" class="btn btn-success btn-sm"><i class="fas fa-plus"></i></a>
                                     <a href="{% url 'podcast:delete_podcast' podcast.id %}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                    {% else %}
+                                    <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addModal"><i class="fas fa-plus"></i></button>
+                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash"></i></button>
+                                    {% endif %}
                                 </div>
                             </td>
                         </tr>
@@ -130,9 +166,63 @@
         </div>
     </div>
 
+    <!-- Unauthorized Create Modal -->
+    <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createModalLabel">Notice</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    You are not authorized to create podcasts.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Unauthorized Add Modal -->
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addModalLabel">Notice</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    You are not authorized to add episode.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Unauthorized Delete Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Notice</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    You are not authorized to delete episode.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrap.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
 {% endblock content %}
